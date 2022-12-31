@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="card card-style1 border-0">
+                <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                    <div>
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <img src={{currentUser.avatar}} alt="...">
+                            <ul>
+                                <li><span><b>Total Karma:</b></span> {{userKarma()}}</li>
+                                <li><span><b>Role:</b></span> {{currentUser.role}}</li>
+                                <li><span><b>Username:</b></span> {{currentUser.username}}</li>
+                                <li><span><b>Email:</b></span> {{currentUser.email}}</li>
+                                <li><span><b>Display Name:</b></span> {{currentUser.display_name}}</li>
+                                <li><span><b>Description:</b></span> {{currentUser.description}}</li>
+                                <br>
+                                <button *ngIf="hasSignedIn()" mat-button class="btn btn-warning"
+                                    [routerLink]="['/update-user', currentUser?.user_id]">Update Info
+                                </button>
+                                <button *ngIf="hasSignedIn()" mat-button class="btn btn-danger"
+                                    [routerLink]="['/update-password', currentUser?.user_id]">Update Password
+                                </button>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <h3 class="title">Your Posts</h3>
+            <app-post-list *ngIf="posts.length > 0" [posts]="posts"></app-post-list>
+        </div>
+
+    </div>
+</div>

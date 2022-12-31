@@ -1,0 +1,33 @@
+<div class="row justify-content-center align-items-center loginForm">
+    <mat-card elevation="5" fxFlex class="content">
+
+        <mat-card-title>
+            <h2>{{title}}</h2>
+        </mat-card-title>
+
+        <mat-card-content>
+            <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="formGroup">
+                <mat-form-field>
+                    <label for="username"><b>Username:</b></label>
+                    <input type="text" formControlName="username" matInput required>
+                </mat-form-field>
+                <mat-form-field>
+                    <label><b>Password:</b></label>
+                    <input formControlName="password" matInput required type="password">
+                </mat-form-field>
+                <button [disabled]="!loginForm.form.valid" color="primary" mat-raised-button
+                    type="submit">Login</button>
+                <br>
+                <button color="primary" mat-raised-button routerLink="/mainPage">Go Back</button>
+            </form>
+            <br>
+
+            <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+            <br>
+            <hr>
+        </mat-card-content>
+
+    </mat-card>
+</div>

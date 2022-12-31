@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <LinearLayout
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingTop="8dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="10dp"
+                                android:layout_marginBottom="30dp">
+
+                                <TextView
+                                    android:id="@+id/selectedPostTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Post Title"
+                                    android:textSize="30dp"
+                                    android:layout_marginBottom="5dp" />
+
+                                <TextView
+                                    android:id="@+id/selectedPostPostedBy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/selectedPostTitle"
+                                    android:layout_marginTop="10dp"
+                                    android:text="Posted By:"
+                                    android:textSize="18dp" />
+
+                                <TextView
+                                    android:id="@+id/selectedPostDisplayName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="50dp"
+                                    android:layout_toEndOf="@+id/selectedPostPostedBy"
+                                    android:text="Username"
+                                    android:textColor="#C0424E"
+                                    android:textSize="23dp" />
+
+                                <TextView
+                                    android:id="@+id/selectedPostOn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/selectedPostPostedBy"
+                                    android:layout_marginTop="10dp"
+                                    android:text="On:"
+                                    android:textSize="18dp" />
+
+                                <TextView
+                                    android:id="@+id/selectedPostSubredditName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="85dp"
+                                    android:layout_toRightOf="@+id/selectedPostOn"
+                                    android:text="r/World"
+                                    android:textColor="@color/holo_blue"
+                                    android:textSize="23dp" />
+
+                                <TextView
+                                    android:id="@+id/selectedPostText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_below="@+id/selectedPostOn"
+                                    android:text="Some random text that should be below a post title."
+                                    android:textSize="16dp" />
+                            </RelativeLayout>
+                        </androidx.cardview.widget.CardView>
+
+
+                        <RelativeLayout
+                            android:id="@+id/postVoteOptions"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="-50dp"
+                            android:layout_marginStart="10dp">
+
+                            <ImageView
+                                android:id="@+id/upvotePost"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginTop="45sp"
+                                android:background="@drawable/upvote_icon" />
+
+                            <TextView
+                                android:id="@+id/selectedPostKarma"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="50dp"
+                                android:layout_marginEnd="65dp"
+                                android:text="1"
+                                android:textSize="30dp" />
+
+                            <ImageView
+                                android:id="@+id/downvotePost"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="45sp"
+                                android:layout_marginEnd="1dp"
+                                android:background="@drawable/downvote_icon" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/postReportOptions"
+                            android:layout_width="90dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="150dp"
+                            android:layout_marginTop="-50dp">
+
+                            <Button
+                                android:id="@+id/selectedPostAddReportButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:background="@color/delete_button"
+                                android:text="Report" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/postOwnerOptions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="left">
+
+                            <Button
+                                android:id="@+id/selectedPostEditButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="30dp"
+                                android:background="@color/edit_button"
+                                android:text="Edit" />
+
+                            <Button
+                                android:id="@+id/selectedPostDeleteButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/delete_button"
+                                android:text="Delete" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="60dp"
+                            android:textStyle="bold"
+                            android:text="Comments on this Post:"
+                            android:textSize="25dp" />
+
+                        <Button
+                            android:id="@+id/selectedPostAddCommentButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/holo_blue"
+                            android:text="Comment" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvCommentsList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>

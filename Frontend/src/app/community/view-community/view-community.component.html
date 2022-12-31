@@ -1,0 +1,33 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+            <h1 class="card-title">{{community?.name}}</h1>
+            <h4 class="card-text">{{community?.description}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-post-list class="col-8" *ngIf="posts.length > 0" [posts]="posts"></app-post-list>
+    <h3 class="col-8" *ngIf="posts.length === 0">No Posts yet, be the first one to Post something on this Community.</h3>
+
+    <div class="col-4">
+      <h3>Rules</h3>
+      <app-rule-list *ngIf="rules.length > 0" [rules]="rules"></app-rule-list>
+      <h5 *ngIf="rules.length === 0">There are no Rules for this Community.</h5>
+      <br>
+      <h3>Flairs</h3>
+      <app-flair-list *ngIf="flairs.length > 0" [flairs]="flairs"></app-flair-list>
+      <h5 *ngIf="flairs.length === 0">There are no Flairs for this Community.</h5>
+      <app-create-post *ngIf="community.is_suspended === false" (savePostEvent)="ngOnInit($event)"></app-create-post>
+    </div>
+    
+  </div>
+</div>

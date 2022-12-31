@@ -1,0 +1,12 @@
+body {
+    background-color: #f7f8f9;
+}
+
+.card-title {
+    margin-left: 150px;
+    color: blue;
+}
+
+.card-text {
+    margin-left: 150px;
+}

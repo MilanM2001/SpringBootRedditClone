@@ -1,0 +1,20 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="row">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title [routerLink]="['/view-community', post.community.community_id]" class="postCommunityName">
+        {{post.community.name}}</mat-card-title>
+      <mat-card-title class="postTitle" [routerLink]="['/view-post', post.post_id]">{{post.title}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image class="image" src={{post.image_path}}>
+    <mat-card-content>
+      <p>{{post.text}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="btn-primary" [routerLink]="['/view-post', post.post_id]">View Post</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

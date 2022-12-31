@@ -1,0 +1,36 @@
+<mat-card elevation="5" fxFlex class="content">
+
+    <mat-card-title>
+        <h2>{{title}}</h2>
+    </mat-card-title>
+
+    <mat-card-content>
+        <form #signupForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="formGroup">
+            <mat-form-field>
+                <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+                <label><b>Username:</b> </label>
+                <input formControlName="username" matInput required type="text">
+            </mat-form-field>
+            <mat-form-field>
+                <label><b>Password:</b> </label>
+                <input formControlName="password" matInput required type="password">
+            </mat-form-field>
+            <mat-form-field>
+                <label><b>Email:</b> </label>
+                <input formControlName="email" matInput required type="email">
+            </mat-form-field>
+            <mat-form-field>
+                <label><b>Display Name:</b> </label>
+                <input formControlName="display_name" matInput required type="text">
+            </mat-form-field>
+            <button [disabled]="!formGroup.valid" color="primary" mat-raised-button type="submit">Sign up</button>
+            <br>
+            <button color="primary" mat-raised-button routerLink="/mainPage">Go Back</button>
+        </form>
+        <br>
+        <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+        <br>
+        <hr>
+    </mat-card-content>
+
+</mat-card>

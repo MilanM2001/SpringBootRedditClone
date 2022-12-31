@@ -1,0 +1,44 @@
+.example-card {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.image {
+  height: 15rem;
+  object-fit: fill;
+}
+
+.btn-warning {
+  margin-left: auto;
+}
+
+.comments {
+  margin-left: 210px;
+}
+
+.btn-success {
+  margin-left: 210px;
+}
+
+.btn-danger {
+  margin-left: 180px;
+}
+
+.postCommunityName {
+  color: blue;
+  cursor: pointer;
+  font-size: 27px;
+}
+
+.postTitle {
+  font-size: 20px;
+}
+
+.noComment {
+  margin-top: 50px;
+  margin-left: 210px;
+  margin-right: 210px;
+}

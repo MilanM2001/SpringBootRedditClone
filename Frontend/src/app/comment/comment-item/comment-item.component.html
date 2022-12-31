@@ -1,0 +1,32 @@
+<div class="container mt-100 mb-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="comment-widgets m-b-20">
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h5>Posted By: <b>{{comment.user.display_name}}</b></h5>
+                                <br>
+                                <p class="m-b-5 m-t-10">{{comment.text}}</p>
+                                <button *ngIf="hasSignedIn() && isByUser() === comment?.user.user_id" mat-button
+                                    class="btn-warning"
+                                    [routerLink]="['/update-comment', comment?.comment_id]">Update</button>
+                                <button *ngIf="hasSignedIn() && isByUser() === comment?.user.user_id" mat-button
+                                    class="btn btn-danger" (click)="deleteComment()">Delete</button>
+                                <br>
+                                <button *ngIf="hasSignedIn()" (click)="upvoteComment()">
+                                    <span style='font-size:10px;'>&#8593;</span>
+                                </button>
+                                <h4>{{commentKarma()}}</h4>
+                                <button *ngIf="hasSignedIn()" (click)="downvoteComment()">
+                                    <span style='font-size:10px;'>&#8595;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

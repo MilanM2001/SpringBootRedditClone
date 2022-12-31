@@ -1,0 +1,31 @@
+.btn-primary {
+    color: #fff;
+    background-color: blue;
+    border-color: blue;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #00b3db;
+    border-color: blue;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: red;
+    border-color: red;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #db003a;
+    border-color: red;
+}

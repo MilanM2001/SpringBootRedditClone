@@ -1,0 +1,55 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div>
+
+    <form class="p-5" [formGroup]="formGroup">
+
+        <div class="form-group col-2">
+            <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+            <label>Community Name</label>
+            <input type="text" class="form-control" formControlName="name"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div>Name must be 3-15 characters long.</div>
+            </div>
+        </div>
+
+        <div class="form-group col-7">
+            <label>Community Description</label>
+            <input type="text" class="form-control" formControlName="description"
+                [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <div>Description must be at least 5 characters long.</div>
+            </div>
+        </div>
+
+        <div class="form-group col-3">
+            <label class="form-label">Rules</label>
+            <input type="text" class="form-control" formControlName="rules">
+            <button (click)="addRule()" class="btn btn-info mt-1">Add Rule</button>
+        </div>
+
+        <div class="form-group col-3">
+            <label class="form-label">Flairs</label>
+            <input type="text" class="form-control" formControlName="flairs">
+            <button (click)="addFlair()" class="btn btn-info mt-1">Add Flair</button>
+        </div>
+
+        <div class="form-group form-check">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Add Community</button>
+            <a routerLink="/communities"><button class="btn btn-danger">Go Back</button></a>
+        </div>
+
+    </form>
+
+</div>
+
+<div>
+    <div *ngFor="let flair of flairs">
+        <h4>Flair: {{flair.name}}</h4>
+    </div>
+    <div *ngFor="let rule of rules">
+        <h4>Rule: {{rule.description}}</h4>
+    </div>
+</div>

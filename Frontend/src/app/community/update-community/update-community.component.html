@@ -1,0 +1,20 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div>
+  <form class="p-5" [formGroup]="formGroup" (ngSubmit)="update()">
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" formControlName="description" id="description" [(ngModel)]="community.description" name="description"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+          <div>Description must be at least 5 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group form-check">
+      <button style='margin-right:16px' class="btn btn-success" (ngSubmit)="update()">Update</button>
+      <button style='margin-right:16px' type="button" class="btn btn-danger" [routerLink]="['/communities']">Back</button>
+    </div>
+  </form>
+</div>

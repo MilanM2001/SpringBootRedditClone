@@ -1,0 +1,32 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="addPost">
+    <form class="p-10" [formGroup]="formGroup" *ngIf="hasSignedIn()">
+        <h3>Add a Post</h3>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" formControlName="title"
+                [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                <div>Title must be at least 3 characters long.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Text</label>
+            <input type="text" class="form-control" formControlName="text"
+                [ngClass]="{ 'is-invalid': submitted && f.text.errors }">
+            <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                <div>Text must be at least 5 characters long.</div>
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Add Post</button>
+        </div>
+
+    </form>
+</div>

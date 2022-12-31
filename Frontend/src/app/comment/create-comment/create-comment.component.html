@@ -1,0 +1,22 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="addComment">
+    <form class="p-5" [formGroup]="formGroup" *ngIf="hasSignedIn()">
+        <h3>Add a Comment</h3>
+
+        <div class="form-group">
+            <label>Text</label>
+            <input type="text" id="text" class="form-control" formControlName="text"
+                [ngClass]="{ 'is-invalid': submitted && f.text.errors }">
+            <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                <div>Comment must have at least 5 characters.</div>
+            </div>
+        </div>
+        <div class="form-group form-check">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Post Comment</button>
+        </div>
+
+    </form>
+</div>

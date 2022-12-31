@@ -1,0 +1,3 @@
+<button *ngIf="hasSignedIn()" [routerLink]="['/profile', user_id()]" class="btn-primary" mat-menu-item>My
+    Profile</button>
+<button (click)="logout()" mat-menu-item class="btn-danger">Sing Out</button>

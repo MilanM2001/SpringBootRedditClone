@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/milju/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.16259057971014493" />
+        <entry key="..\:/Users/milju/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/Android Prva Verzija/app/src/main/res/layout/activity_main.xml" value="0.12335359675785208" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_add_community.xml" value="0.4" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_add_post.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_all_posts.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_community_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_detail.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_list_community.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_list_post.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_main_page.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_post_detail.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_registration.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/activity_user_detail.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_comment_activity.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_community_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_post_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_report_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_report_comment_activity.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/add_report_post_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/cinema_list.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/community_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/content_community_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/content_detail.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/content_post_detail.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/content_user_detail.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/drawer_list_item.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/drawer_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_comment_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_comment_report_activity.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_community_activity.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_password_activity.xml" value="0.16" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_post_activity.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_post_report_activity.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/edit_profile_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_comment_item.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_comment_report_item.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_community_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_community_item.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_post_activity.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_post_item.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_post_report_item.xml" value="0.4" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_report_activity.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_report_comment_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_report_item.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/list_report_post_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/main.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/main_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/map_layout.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/my_profile_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/nav_activity_main_page.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/nav_header.xml" value="0.253125" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/nav_header_main.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/post_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/post_list.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/registration_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/selected_comment_activity.xml" value="0.2" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/selected_comment_report_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/selected_community_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/selected_post_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/selected_post_report_activity.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/splash.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/suspend_community_activity.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/layout/user_list.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/menu/activity_itemdetail.xml" value="0.264" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/menu/drawer_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/milju/OneDrive/Desktop/SR_57_Reddit/Android/app/src/main/res/xml/network_security_config.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
