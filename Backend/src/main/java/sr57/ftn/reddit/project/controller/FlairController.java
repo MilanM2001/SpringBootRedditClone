@@ -39,7 +39,7 @@ public class FlairController {
     }
 
     @GetMapping("/{flair_id}")
-    public ResponseEntity<FlairDTO> getFlair(@PathVariable("flair_id") Integer flair_id) {
+    public ResponseEntity<FlairDTO> getSingle(@PathVariable("flair_id") Integer flair_id) {
         Flair flair = flairService.findOne(flair_id);
         return flair == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(flair, FlairDTO.class), HttpStatus.OK);
     }

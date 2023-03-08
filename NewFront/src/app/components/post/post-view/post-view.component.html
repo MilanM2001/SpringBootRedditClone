@@ -1,0 +1,12 @@
+<mat-card class="post-card">
+    <mat-card-title class="community-title" [routerLink]="['/community-view', post.community.communityId]">
+        {{post.community.name}}</mat-card-title>
+    <mat-card-title class="post-user-date">Posted by u/milan on {{post.createdDate | date}}</mat-card-title>
+    <mat-card-title class="post-title">{{post.title}}</mat-card-title>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+    <mat-card-actions>
+        <mat-card-subtitle class="post-subtitle">{{post.text}}</mat-card-subtitle>
+    </mat-card-actions>
+</mat-card>
+<button class="btn btn-warning" [routerLink]="['/post-edit', post.postId]">Update</button>
+<button class="btn btn-danger" (click)="deletePost()">Delete</button>

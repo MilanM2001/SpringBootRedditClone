@@ -58,7 +58,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/{post_id}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable("post_id") Integer post_id) {
+    public ResponseEntity<PostDTO> getSingle(@PathVariable("post_id") Integer post_id) {
         Post post = postService.findOne(post_id);
         return post == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(post, PostDTO.class), HttpStatus.OK);
     }
