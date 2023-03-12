@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddPostDTO } from 'src/app/dto/addPostDTO';
 import { Community } from 'src/app/model/community.model';
 import { Flair } from 'src/app/model/flair.model';
 import { Post } from 'src/app/model/post.model';
 import { CommunityService } from 'src/app/services/community.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-post-add',
@@ -21,10 +22,13 @@ export class PostAddComponent implements OnInit {
   });
 
   community: Community = new Community();
+  community_id = Number(this.route.snapshot.paramMap.get('community_id'))
   flairs: Flair[] =  [];
 
   constructor(private communityService: CommunityService,
+              private postService: PostService,
               private route: ActivatedRoute,
+              private router: Router,
               private formBuilder: FormBuilder) { }
   
   // @ts-ignore
@@ -32,7 +36,7 @@ export class PostAddComponent implements OnInit {
   submitted = false;
   
   ngOnInit(): void {
-    this.communityService.GetSingle(Number(this.route.snapshot.paramMap.get('communityId')))
+    this.communityService.GetSingle(this.community_id)
       .subscribe({
         next: (data: Community) => {
           this.community = data as Community;
@@ -43,7 +47,7 @@ export class PostAddComponent implements OnInit {
         }
       });
 
-    this.communityService.GetCommunityFlairs(Number(this.route.snapshot.paramMap.get('communityId')))
+    this.communityService.GetCommunityFlairs(this.community_id)
       .subscribe({
         next: (data: Flair[]) => {
           this.flairs = data as Flair[];
@@ -54,7 +58,7 @@ export class PostAddComponent implements OnInit {
       this.formGroup = this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
         text: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
-        flairId: ['', [Validators.required]]
+        flair_id: ['', [Validators.required]]
       })
   }
 
@@ -73,9 +77,9 @@ export class PostAddComponent implements OnInit {
 
     addPost.title = this.formGroup.get('title')?.value;
     addPost.text = this.formGroup.get('text')?.value;
-    addPost.flairId = this.formGroup.get('flairId')?.value;
+    addPost.flair_id = this.formGroup.get('flair_id')?.value;
 
-    this.communityService.AddPost(Number(this.route.snapshot.paramMap.get('communityId')), addPost)
+    this.postService.AddPost(this.community_id, addPost)
       .subscribe({
         next: (data: Post) => {
           console.log(data);

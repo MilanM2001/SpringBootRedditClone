@@ -55,7 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
         httpSecurity.headers().cacheControl().disable();
         httpSecurity.cors();
 
@@ -65,21 +64,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/posts/all").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/{post_id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/{post_id}/comments").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/single/{post_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/comments/{post_id}").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/communities/all").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/communities/{community_id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/communities/{community_id}/posts").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/communities/{community_id}/rules").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/communities/{community_id}/flairs").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/communities/single/{community_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/communities/posts/{community_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/communities/rules/{community_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/communities/flairs/{community_id}").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/users/{user_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/users/single/{user_id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/whoami").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users/loginAndroid").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/users/loginAndroid").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api//flairs/all").permitAll()
                 .antMatchers(HttpMethod.GET, "/api//flairs/{flair_id}").permitAll()

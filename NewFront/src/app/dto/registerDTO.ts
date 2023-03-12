@@ -2,12 +2,12 @@ export class RegisterDTO {
     username: string = "";
     password: string = "";
     email: string = "";
-    displayName: string = "";
+    display_name: string = "";
 
-    RegisterDTO(username: string, password: string, email: string, displayName: string) {
+    RegisterDTO(username: string, password: string, email: string, display_name: string) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.displayName = displayName;
+        this.display_name = display_name;
     }
 }

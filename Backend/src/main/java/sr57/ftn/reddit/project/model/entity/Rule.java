@@ -18,7 +18,10 @@ public class Rule implements Serializable {
     @Column(name = "rule_id", unique = true, nullable = false)
     private Integer rule_id;
 
-    @Column(name = "description", unique = false, nullable = false)
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "description", nullable = false)
     private String description;
 
     //Rule has one Community

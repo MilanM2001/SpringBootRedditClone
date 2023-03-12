@@ -1,5 +1,5 @@
 export class User {
-    userId: number = 0;
+    user_id: number = 0;
     username: string = "";
     password: string = "";
     avatar: string = "";
@@ -8,8 +8,8 @@ export class User {
     description: string = "";
     displayName: string = "";
 
-    User(userId: number, username: string, password: string, avatar: string, email: string,  dateOfRegistration: Date, description: string, displayName: string) {
-        this.userId = userId;
+    User(user_id: number, username: string, password: string, avatar: string, email: string,  dateOfRegistration: Date, description: string, displayName: string) {
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.avatar = avatar;

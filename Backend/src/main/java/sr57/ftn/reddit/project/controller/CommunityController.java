@@ -10,22 +10,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sr57.ftn.reddit.project.model.dto.communityDTOs.*;
 import sr57.ftn.reddit.project.model.dto.flairDTOs.FlairDTO;
-import sr57.ftn.reddit.project.model.dto.postDTOs.AddPostDTO;
 import sr57.ftn.reddit.project.model.dto.postDTOs.PostDTO;
-import sr57.ftn.reddit.project.model.dto.reactionDTOs.ReactionDTO;
-import sr57.ftn.reddit.project.model.dto.reportDTOs.SimpleInfoReportDTO;
 import sr57.ftn.reddit.project.model.dto.ruleDTOs.RuleDTO;
-import sr57.ftn.reddit.project.model.dto.userDTOs.UserDTO;
 import sr57.ftn.reddit.project.model.entity.*;
-import sr57.ftn.reddit.project.model.enums.ReactionType;
 import sr57.ftn.reddit.project.service.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/communities")
@@ -52,7 +44,8 @@ public class CommunityController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CommunityDTO>> getAll() {
+    @CrossOrigin
+    public ResponseEntity<List<CommunityDTO>> GetAll() {
         List<Community> communities = communityService.findAllNonSuspended();
 
         List<CommunityDTO> communitiesDTO = modelMapper.map(communities, new TypeToken<List<CommunityDTO>>() {
@@ -60,87 +53,40 @@ public class CommunityController {
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{community_id}")
-    public ResponseEntity<CommunityDTO> getCommunity(@PathVariable("community_id") Integer community_id) {
+    @GetMapping("/single/{community_id}")
+    public ResponseEntity<CommunityDTO> GetCommunity(@PathVariable("community_id") Integer community_id) {
         Community community = communityService.findOne(community_id);
         return community == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(community, CommunityDTO.class), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{community_id}/posts")
-    public ResponseEntity<List<PostDTO>> getCommunityPosts(@PathVariable Integer community_id) {
-        try {
-            Community community = communityService.findOneWithPosts(community_id);
+    @GetMapping(value = "/posts/{community_id}")
+    public ResponseEntity<List<PostDTO>> GetCommunityPosts(@PathVariable Integer community_id) {
+        List<Post> posts = postService.findPostsByCommunityId(community_id);
 
-            Set<Post> posts = community.getPosts();
-            List<PostDTO> postsDTO = new ArrayList<>();
-            for (Post post : posts) {
-                PostDTO postDTO = new PostDTO();
-
-                postDTO.setPost_id(post.getPost_id());
-                postDTO.setTitle(post.getTitle());
-                postDTO.setText(post.getText());
-                postDTO.setImage_path(post.getImage_path());
-                postDTO.setCommunity(modelMapper.map(post.getCommunity(), CommunityDTO.class));
-                postDTO.setUser(modelMapper.map(post.getUser(), UserDTO.class));
-                postDTO.setReactions(modelMapper.map(post.getReactions(), new TypeToken<Set<ReactionDTO>>() {
-                }.getType()));
-                postDTO.setReports(modelMapper.map(post.getReports(), new TypeToken<Set<SimpleInfoReportDTO>>() {
-                }.getType()));
-
-                postsDTO.add(postDTO);
-            }
-            return new ResponseEntity<>(postsDTO, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-        }
+        List<PostDTO> postsDTO = modelMapper.map(posts, new TypeToken<List<PostDTO>>() {}.getType());
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{community_id}/rules")
-    public ResponseEntity<List<RuleDTO>> getCommunityRules(@PathVariable Integer community_id) {
-        try {
-            Community community = communityService.findOneWithRules(community_id);
+    @GetMapping(value = "/rules/{community_id}")
+    public ResponseEntity<List<RuleDTO>> GetCommunityRules(@PathVariable Integer community_id) {
+        List<Rule> rules = ruleService.findRulesByCommunityId(community_id);
 
-            Set<Rule> rules = community.getRules();
-            List<RuleDTO> rulesDTO = new ArrayList<>();
-            for (Rule rule : rules) {
-                RuleDTO ruleDTO = new RuleDTO();
-
-                ruleDTO.setRule_id(rule.getRule_id());
-                ruleDTO.setDescription(rule.getDescription());
-
-                rulesDTO.add(ruleDTO);
-            }
-            return new ResponseEntity<>(rulesDTO, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-        }
+        List<RuleDTO> rulesDTO = modelMapper.map(rules, new TypeToken<List<RuleDTO>>() {}.getType());
+        return new ResponseEntity<>(rulesDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{community_id}/flairs")
-    public ResponseEntity<List<FlairDTO>> getCommunityFlairs(@PathVariable Integer community_id) {
-        try {
-            Community community = communityService.findOneWithFlairs(community_id);
+    @GetMapping(value = "/flairs/{community_id}")
+    public ResponseEntity<List<FlairDTO>> GetCommunityFlairs(@PathVariable Integer community_id) {
+        List<Flair> flairs = flairService.findFlairsByCommunityId(community_id);
 
-            Set<Flair> flairs = community.getFlairs();
-            List<FlairDTO> flairsDTO = new ArrayList<>();
-            for (Flair flair : flairs) {
-                FlairDTO flairDTO = new FlairDTO();
-
-                flairDTO.setFlair_id(flair.getFlair_id());
-                flairDTO.setName(flair.getName());
-
-                flairsDTO.add(flairDTO);
-            }
-            return new ResponseEntity<>(flairsDTO, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-        }
+        List<FlairDTO> flairsDTO = modelMapper.map(flairs, new TypeToken<List<FlairDTO>>() {}.getType());
+        return new ResponseEntity<>(flairsDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddCommunityDTO> addCommunity(@RequestBody AddCommunityDTO addCommunityDTO, Authentication authentication) {
+    public ResponseEntity<AddCommunityDTO> AddCommunity(@RequestBody AddCommunityDTO addCommunityDTO, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Optional<Community> name = communityService.findFirstByName(addCommunityDTO.getName());
 
@@ -156,22 +102,22 @@ public class CommunityController {
         newCommunity.setIs_suspended(false);
         newCommunity.setSuspended_reason("Not Suspended");
 
-        Community savedCommunity = communityService.save(newCommunity);
-
-        Set<Flair> flairs = addCommunityDTO.getFlairs().stream().map(flair -> {
-            Flair f = new Flair();
-            f.getCommunities().add(savedCommunity);
-            f.setName(flair.getName());
-            return this.flairService.save(f);
-        }).collect(Collectors.toSet());
-
-        savedCommunity.setFlairs(flairs);
+//        Community savedCommunity = communityService.save(newCommunity);
+          communityService.save(newCommunity);
 
         for (RuleDTO ruleDTO : addCommunityDTO.getRules()) {
             Rule newRule = new Rule();
+            newRule.setName(ruleDTO.getName());
             newRule.setDescription(ruleDTO.getDescription());
             newRule.setCommunity(newCommunity);
             ruleService.save(newRule);
+        }
+
+        for (FlairDTO flairDTO : addCommunityDTO.getFlairs()) {
+            Flair newFlair = new Flair();
+            newFlair.setName(flairDTO.getName());
+            newFlair.setCommunity(newCommunity);
+            flairService.save(newFlair);
         }
 
         Moderator newModerator = new Moderator();
@@ -182,43 +128,10 @@ public class CommunityController {
         return new ResponseEntity<>(modelMapper.map(newCommunity, AddCommunityDTO.class), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "{community_id}/addPost")
+    @PutMapping(value = "/update/{community_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddPostDTO> addPost(@RequestBody AddPostDTO addPostDTO, @PathVariable("community_id") Integer community_id, Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
-        Community community = communityService.findOne(community_id);
-
-        Post newPost = new Post();
-
-        newPost.setTitle(addPostDTO.getTitle());
-        newPost.setText(addPostDTO.getText());
-        newPost.setCreation_date(LocalDate.now());
-        newPost.setImage_path("https://upload.wikimedia.org/wikipedia/commons/1/1e/Battle_of_Kosovo%2C_Adam_Stefanovi%C4%87%2C_1870.jpg");
-        newPost.setUser(user);
-        newPost.setCommunity(community);
-        newPost.setFlair(null);
-
-        newPost = postService.save(newPost);
-
-        Reaction newReaction = new Reaction();
-
-        newReaction.setUser(user);
-        newReaction.setTimestamp(LocalDate.now());
-        newReaction.setComment(null);
-        newReaction.setReaction_type(ReactionType.UPVOTE);
-        newReaction.setPost(newPost);
-
-        reactionService.save(newReaction);
-
-        return new ResponseEntity<>(modelMapper.map(newPost, AddPostDTO.class), HttpStatus.CREATED);
-    }
-
-    @PutMapping(value = "/updateCommunity/{community_id}")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @CrossOrigin
-    public ResponseEntity<UpdateCommunityDTO> updateCommunity(@RequestBody UpdateCommunityDTO updateCommunityDTO, @PathVariable("community_id") Integer community_id, Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
+    public ResponseEntity<UpdateCommunityDTO> UpdateCommunity(@RequestBody UpdateCommunityDTO updateCommunityDTO, @PathVariable("community_id") Integer community_id) {
         Community community = communityService.findOne(community_id);
 
         if (community == null) {
@@ -233,10 +146,10 @@ public class CommunityController {
     }
 
     //Only Admin can suspend a community
-    @PutMapping(value = "/suspendCommunity/{community_id}")
+    @PutMapping(value = "/suspend/{community_id}")
     @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
-    public ResponseEntity<SuspendCommunityDTO> suspendCommunity(@RequestBody SuspendCommunityDTO suspendCommunityDTO, @PathVariable("community_id") Integer community_id) {
+    public ResponseEntity<SuspendCommunityDTO> SuspendCommunity(@RequestBody SuspendCommunityDTO suspendCommunityDTO, @PathVariable("community_id") Integer community_id) {
         Community community = communityService.findOne(community_id);
 
         if (community == null) {
@@ -253,9 +166,9 @@ public class CommunityController {
     }
 
     //Not used
-    @DeleteMapping(value = "/{community_id}")
+    @DeleteMapping(value = "/delete/{community_id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteCommunity(@PathVariable("community_id") Integer community_id) {
+    public ResponseEntity<Void> DeleteCommunity(@PathVariable("community_id") Integer community_id) {
         Community community = communityService.findOne(community_id);
 
         if (community != null) {
@@ -272,7 +185,7 @@ public class CommunityController {
     @PostMapping(value = "/addCommunityAndroid")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddCommunityDTOAndroid> addCommunityAndroid(@RequestBody AddCommunityDTOAndroid addCommunityDTOAndroid, Authentication authentication) {
+    public ResponseEntity<AddCommunityDTOAndroid> AddCommunityAndroid(@RequestBody AddCommunityDTOAndroid addCommunityDTOAndroid, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Optional<Community> name = communityService.findFirstByName(addCommunityDTOAndroid.getName());
 
@@ -288,7 +201,7 @@ public class CommunityController {
         newCommunity.setIs_suspended(false);
         newCommunity.setSuspended_reason("Not Suspended");
 
-        Community savedCommunity = communityService.save(newCommunity);
+        communityService.save(newCommunity);
 
         Moderator newModerator = new Moderator();
         newModerator.setUser(user);

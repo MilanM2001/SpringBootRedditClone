@@ -1,11 +1,11 @@
 export class AddPostDTO {
     title: string = "";
     text: string = "";
-    flairId: number = 0;
+    flair_id: number = 0;
 
-    AddPostDTO(title: string, text: string, flairId: number) {
+    AddPostDTO(title: string, text: string, flair_id: number) {
         this.title = title;
         this.text = text;
-        this.flairId = flairId;
+        this.flair_id = flair_id;
     }
 }

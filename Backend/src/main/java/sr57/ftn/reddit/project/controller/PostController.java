@@ -10,21 +10,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sr57.ftn.reddit.project.model.dto.commentDTOs.AddCommentDTO;
 import sr57.ftn.reddit.project.model.dto.commentDTOs.CommentDTO;
+import sr57.ftn.reddit.project.model.dto.postDTOs.AddPostDTO;
 import sr57.ftn.reddit.project.model.dto.postDTOs.PostDTO;
 import sr57.ftn.reddit.project.model.dto.postDTOs.UpdatePostDTO;
-import sr57.ftn.reddit.project.model.dto.reactionDTOs.ReactionForCommentAndPost;
 import sr57.ftn.reddit.project.model.dto.reportDTOs.AddReportDTO;
-import sr57.ftn.reddit.project.model.dto.reportDTOs.SimpleInfoReportDTO;
-import sr57.ftn.reddit.project.model.dto.userDTOs.SimpleInfoUserDTO;
 import sr57.ftn.reddit.project.model.entity.*;
 import sr57.ftn.reddit.project.model.enums.ReactionType;
 import sr57.ftn.reddit.project.model.enums.ReportStatus;
 import sr57.ftn.reddit.project.service.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/posts")
@@ -36,9 +32,10 @@ public class PostController {
     final CommentService commentService;
     final ReactionService reactionService;
     final ReportService reportService;
+    final FlairService flairService;
 
     @Autowired
-    public PostController(PostService postService, UserService userService, CommunityService communityService, ModelMapper modelMapper, CommentService commentService, ReactionService reactionService, ReportService reportService) {
+    public PostController(PostService postService, UserService userService, CommunityService communityService, ModelMapper modelMapper, CommentService commentService, ReactionService reactionService, ReportService reportService, FlairService flairService) {
         this.postService = postService;
         this.userService = userService;
         this.communityService = communityService;
@@ -46,6 +43,7 @@ public class PostController {
         this.commentService = commentService;
         this.reactionService = reactionService;
         this.reportService = reportService;
+        this.flairService = flairService;
     }
 
     @GetMapping(value = "/all")
@@ -57,36 +55,18 @@ public class PostController {
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{post_id}")
+    @GetMapping(value = "/single/{post_id}")
     public ResponseEntity<PostDTO> getSingle(@PathVariable("post_id") Integer post_id) {
         Post post = postService.findOne(post_id);
         return post == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(post, PostDTO.class), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{post_id}/comments")
+    @GetMapping(value = "/comments/{post_id}")
     public ResponseEntity<List<CommentDTO>> getPostComments(@PathVariable("post_id") Integer post_id) {
-        try {
-            Post post = postService.findOneWithComments(post_id);
+        List<Comment> comments = commentService.findCommentsByPostId(post_id);
 
-            Set<Comment> comments = post.getComments();
-            List<CommentDTO> commentsDTO = new ArrayList<>();
-            for (Comment comment : comments) {
-                CommentDTO commentDTO = new CommentDTO();
-
-                commentDTO.setComment_id(comment.getComment_id());
-                commentDTO.setText(comment.getText());
-                commentDTO.setUser(modelMapper.map(comment.getUser(), SimpleInfoUserDTO.class));
-                commentDTO.setReactions(modelMapper.map(comment.getReactions(), new TypeToken<Set<ReactionForCommentAndPost>>() {
-                }.getType()));
-                commentDTO.setReports(modelMapper.map(comment.getReports(), new TypeToken<Set<SimpleInfoReportDTO>>() {
-                }.getType()));
-
-                commentsDTO.add(commentDTO);
-            }
-            return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-        }
+        List<CommentDTO> commentsDTO = modelMapper.map(comments, new TypeToken<List<CommentDTO>>() {}.getType());
+        return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
     }
 
     //Not needed, can be solved on the Frontend
@@ -108,7 +88,41 @@ public class PostController {
 //        return karma;
 //    }
 
-    @PostMapping(value = "{post_id}/addComment")
+    @PostMapping(value = "/add/{community_id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @CrossOrigin
+    public ResponseEntity<AddPostDTO> addPost(@RequestBody AddPostDTO addPostDTO, @PathVariable("community_id") Integer community_id, Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        Community community = communityService.findOne(community_id);
+
+        Post newPost = new Post();
+
+        newPost.setTitle(addPostDTO.getTitle());
+        newPost.setText(addPostDTO.getText());
+        newPost.setCreation_date(LocalDate.now());
+        newPost.setImage_path("none");
+        newPost.setUser(user);
+        newPost.setCommunity(community);
+        if (addPostDTO.getFlair_id() != 0) {
+            newPost.setFlair(flairService.findOne(addPostDTO.getFlair_id()));
+        }
+
+        newPost = postService.save(newPost);
+
+        Reaction newReaction = new Reaction();
+
+        newReaction.setUser(user);
+        newReaction.setTimestamp(LocalDate.now());
+        newReaction.setComment(null);
+        newReaction.setReaction_type(ReactionType.UPVOTE);
+        newReaction.setPost(newPost);
+
+        reactionService.save(newReaction);
+
+        return new ResponseEntity<>(modelMapper.map(newPost, AddPostDTO.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/addComment/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
     public ResponseEntity<AddCommentDTO> addComment(@RequestBody AddCommentDTO addCommentDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
@@ -137,7 +151,7 @@ public class PostController {
         return new ResponseEntity<>(modelMapper.map(newComment, AddCommentDTO.class), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping(value = "/{post_id}/addReport")
+    @PostMapping(value = "/addReport/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
     public ResponseEntity<AddReportDTO> reportPost(@RequestBody AddReportDTO addReportDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
@@ -159,7 +173,7 @@ public class PostController {
         return new ResponseEntity<>(modelMapper.map(newReport, AddReportDTO.class), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "updatePost/{post_id}")
+    @PutMapping(value = "update/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
     public ResponseEntity<UpdatePostDTO> updatePost(@RequestBody UpdatePostDTO updatePostDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
@@ -181,7 +195,7 @@ public class PostController {
         return new ResponseEntity<>(modelMapper.map(post, UpdatePostDTO.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{post_id}")
+    @DeleteMapping(value = "/delete/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
     public ResponseEntity<Void> deletePost(@PathVariable("post_id") Integer post_id, Authentication authentication) {

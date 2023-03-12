@@ -10,17 +10,30 @@
 </div>
 
 <div class="row">
+
     <div class="col-7 col-lg-8">
         <app-post-list *ngIf="posts.length > 0" [posts]="posts"></app-post-list>
     </div>
+
     <div class="col-5 col-lg-4">
-        <a [routerLink]="['/post-add', community.communityId]"><button class="btn btn-primary">Create a Post</button></a>
+        <a [routerLink]="['/Post-Add', community.community_id]"><button class="btn btn-primary">Create a Post</button></a>
         <mat-card class="community-view-rules-card">
             <mat-card-title class="community-view-rules-card-title">Community Rules:</mat-card-title>
             <mat-card-content *ngFor="let rule of rules">
-                <mat-card-header class="community-rules-header">{{rule.name}} <mat-icon class="edit-icon" [routerLink]="['/rule-edit', rule.ruleId]">edit</mat-icon></mat-card-header>
+                <mat-card-header class="community-rules-header">{{rule.name}} <mat-icon class="edit-icon" [routerLink]="['/rule-edit', rule.rule_id]">edit</mat-icon></mat-card-header>
             </mat-card-content>
         </mat-card>
-        <a [routerLink]="['/rule-add', community.communityId]"><button class="btn btn-danger">Add Rules</button></a>
+        <a [routerLink]="['/rule-add', community.community_id]"><button class="btn btn-danger">Add Rules</button></a>
     </div>
+
+    <!-- <div class="col-5 col-lg-4">
+        <mat-card class="community-view-rules-card">
+            <mat-card-title class="community-view-rules-card-title">Community Flairs:</mat-card-title>
+            <mat-card-content *ngFor="let flair of flairs">
+                <mat-card-header class="community-rules-header">{{flair.name}} <mat-icon class="edit-icon" [routerLink]="['/flair-edit', flair.flairId]">edit</mat-icon></mat-card-header>
+            </mat-card-content>
+        </mat-card>
+        <a [routerLink]="['/rule-add', community.community_id]"><button class="btn btn-danger">Add Flairs</button></a>
+    </div> -->
+
 </div>

@@ -25,7 +25,6 @@ import sr57.ftn.reddit.project.model.entity.Post;
 import sr57.ftn.reddit.project.model.entity.User;
 import sr57.ftn.reddit.project.security.JwtAuthenticationRequest;
 import sr57.ftn.reddit.project.security.TokenUtils;
-import sr57.ftn.reddit.project.security.UserTokenState;
 import sr57.ftn.reddit.project.service.UserService;
 
 import java.security.Principal;
@@ -65,7 +64,7 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{user_id}")
+    @GetMapping("/single/{user_id}")
     @CrossOrigin
     public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Integer user_id) {
         User user = userService.findOne(user_id);
@@ -78,7 +77,7 @@ public class UserController {
         return modelMapper.map(userService.findByUsername(user.getName()), UserDTO.class);
     }
 
-    @GetMapping(value = "/{user_id}/posts")
+    @GetMapping(value = "/posts/{user_id}")
     @CrossOrigin
     public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable Integer user_id) {
         try {
@@ -106,7 +105,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/signup", consumes = "application/json")
+    @PostMapping(value = "/register", consumes = "application/json")
     @CrossOrigin
     public ResponseEntity<AddUserDTO> signup(@RequestBody AddUserDTO addUserDTO) {
 
@@ -121,14 +120,13 @@ public class UserController {
         newUser.setDisplay_name(addUserDTO.getDisplay_name());
         newUser.getRole();
 
-        Optional<User> userUsername = userService.findFirstByUsername(addUserDTO.getUsername());
-        Optional<User> userEmail = userService.findFirstByEmail(addUserDTO.getEmail());
+        Optional<User> existingUsername = userService.findFirstByUsername(addUserDTO.getUsername());
+        Optional<User> existingEmail = userService.findFirstByEmail(addUserDTO.getEmail());
 
-        if (userUsername.isPresent()) {
+        if (existingUsername.isPresent()) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-
-        if (userEmail.isPresent()) {
+        if (existingEmail.isPresent()) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
@@ -138,7 +136,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @CrossOrigin
-    public ResponseEntity<UserTokenState> login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+    public ResponseEntity<String> login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -146,7 +144,7 @@ public class UserController {
         String jwt = tokenUtils.generateToken(user);
         int expiresIn = tokenUtils.getExpiredIn();
 
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        return ResponseEntity.ok(jwt);
     }
 
     @PutMapping(value = "/updatePassword/{user_id}")
@@ -170,7 +168,7 @@ public class UserController {
         return new ResponseEntity<>(modelMapper.map(user, UpdatePasswordDTO.class), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/updateUser/{user_id}")
+    @PutMapping(value = "/updateInfo/{user_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
     public ResponseEntity<UpdateInfoDTO> updateInfo(@RequestBody UpdateInfoDTO updateInfoDTO, @PathVariable("user_id") Integer user_id, Authentication authentication) {
@@ -189,7 +187,7 @@ public class UserController {
         return new ResponseEntity<>(modelMapper.map(user, UpdateInfoDTO.class), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/delete/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable("user_id") Integer user_id) {
         User user = userService.findOne(user_id);

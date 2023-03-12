@@ -4,8 +4,8 @@
     margin-top: 30px;
 }
 
-.add-post-card {
-    width: 800px;
+.add-community-card {
+    width: 1000px;
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
@@ -45,13 +45,37 @@
     float: right;
 }
 
-.community-view-rules-card {
-    max-width: 450px;
+.rules-card {
+    max-width: 300px;
     margin-top: 30px;
-    margin-right: 40px;
+    margin-left: 200px;
+    margin-bottom: 30px;
 }
 
-.community-view-rules-card-title {
+.rules-card-title {
     font-size: 25px;
     color: red;
 }
+
+.flairs-card {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: 200px;
+    margin-bottom: 30px;
+}
+
+.flairs-card-title {
+    font-size: 25px;
+    color: red;
+}
+
+
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+}  

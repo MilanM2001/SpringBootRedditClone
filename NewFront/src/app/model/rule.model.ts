@@ -1,10 +1,10 @@
 export class Rule {
-    ruleId: number = 0;
+    rule_id: number = 0;
     name: string = "";
     description: string = "";
 
-    Rule(ruleId: number, name: string, description: string) {
-        this.ruleId = ruleId;
+    Rule(rule_id: number, name: string, description: string) {
+        this.rule_id = rule_id;
         this.name = name;
         this.description = description;
     }

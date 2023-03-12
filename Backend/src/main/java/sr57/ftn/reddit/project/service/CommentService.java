@@ -22,6 +22,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
+    public List<Comment> findCommentsByPostId(Integer post_id) {
+        return commentRepository.findCommentsByPostId(post_id);
+    }
+
     public void remove(Integer id) {
         commentRepository.deleteById(id);
     }

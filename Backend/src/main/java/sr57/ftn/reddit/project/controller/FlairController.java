@@ -5,9 +5,10 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import sr57.ftn.reddit.project.model.dto.flairDTOs.AddFlairDTO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import sr57.ftn.reddit.project.model.dto.flairDTOs.FlairDTO;
 import sr57.ftn.reddit.project.model.entity.Flair;
 import sr57.ftn.reddit.project.repository.FlairRepository;
@@ -44,29 +45,29 @@ public class FlairController {
         return flair == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(flair, FlairDTO.class), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/add")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @CrossOrigin
-    public ResponseEntity<AddFlairDTO> addFlair(@RequestBody AddFlairDTO addFlairDTO) {
-        Flair newFlair = new Flair();
+//    @PostMapping(value = "/add")
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//    @CrossOrigin
+//    public ResponseEntity<AddFlairDTO> addFlair(@RequestBody AddFlairDTO addFlairDTO) {
+//        Flair newFlair = new Flair();
+//
+//        newFlair.setName(addFlairDTO.getName());
+//
+//        newFlair = flairService.save(newFlair);
+//        return new ResponseEntity<>(modelMapper.map(newFlair, AddFlairDTO.class), HttpStatus.CREATED);
+//    }
 
-        newFlair.setName(addFlairDTO.getName());
-
-        newFlair = flairService.save(newFlair);
-        return new ResponseEntity<>(modelMapper.map(newFlair, AddFlairDTO.class), HttpStatus.CREATED);
-    }
-
-    @DeleteMapping(value = "/{flair_id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteFlair(@PathVariable("flair_id") Integer flair_id) {
-        Flair flair = flairService.findOne(flair_id);
-
-        if (flair != null) {
-            flairService.remove(flair_id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @DeleteMapping(value = "/{flair_id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<Void> deleteFlair(@PathVariable("flair_id") Integer flair_id) {
+//        Flair flair = flairService.findOne(flair_id);
+//
+//        if (flair != null) {
+//            flairService.remove(flair_id);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
 }

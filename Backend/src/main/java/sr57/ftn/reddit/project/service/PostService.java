@@ -45,4 +45,8 @@ public class PostService {
     public Post findOneWithComments(Integer post_id) {
         return postRepository.findOneWithComments(post_id);
     }
+
+    public List<Post> findPostsByCommunityId(Integer community_id) {
+        return postRepository.findPostsByCommunityId(community_id);
+    }
 }

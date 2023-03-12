@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatCardModule } from '@angular/material/card';
@@ -9,11 +10,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { AuthInterceptor } from './services/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { CommunityItemComponent } from './components/community/community-item/community-item.component';
@@ -28,6 +29,10 @@ import { PostEditComponent } from './components/post/post-edit/post-edit.compone
 import { PostItemComponent } from './components/post/post-item/post-item.component';
 import { PostListComponent } from './components/post/post-list/post-list.component';
 import { PostViewComponent } from './components/post/post-view/post-view.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { MatIcon } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,9 @@ import { PostViewComponent } from './components/post/post-view/post-view.compone
     PostEditComponent,
     PostItemComponent,
     PostListComponent,
-    PostViewComponent
+    PostViewComponent,
+    NotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ import { PostViewComponent } from './components/post/post-view/post-view.compone
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
-    
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

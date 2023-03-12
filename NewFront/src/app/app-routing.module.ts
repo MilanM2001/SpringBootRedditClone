@@ -7,11 +7,20 @@ import { CommunitySuspendComponent } from './components/community/community-susp
 import { CommunityViewComponent } from './components/community/community-view/community-view.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PostAddComponent } from './components/post/post-add/post-add.component';
+import { PostEditComponent } from './components/post/post-edit/post-edit.component';
+import { PostViewComponent } from './components/post/post-view/post-view.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
     path: "Login",
     component: LoginComponent
+  },
+  {
+    path: "Register",
+    component: RegisterComponent
   },
   {
     path: "Main-Page",
@@ -22,21 +31,38 @@ const routes: Routes = [
     component: CommunitiesComponent
   },
   {
-    path: 'community-view/:communityId',
+    path: 'Community-Add',
+    component: CommunityAddComponent
+  },
+  {
+    path: 'Community-View/:community_id',
     component: CommunityViewComponent
   },
   {
-    path: 'community-edit/:communityId',
+    path: 'Community-Edit/:community_id',
     component: CommunityEditComponent
   },
   {
-    path: 'community-suspend/:communityId',
+    path: 'Community-Suspend/:community_id',
     component: CommunitySuspendComponent
   },
   {
-    path: 'community/add',
-    component: CommunityAddComponent
+    path: 'Post-View/:post_id',
+    component: PostViewComponent
   },
+  {
+    path: 'Post-Edit/:post_id',
+    component: PostEditComponent
+  },
+  {
+    path: 'Post-Add/:community_id',
+    component: PostAddComponent
+  },
+  
+  {
+    path: '**',
+    component: NotFoundComponent
+  }
 ];
 
 @NgModule({

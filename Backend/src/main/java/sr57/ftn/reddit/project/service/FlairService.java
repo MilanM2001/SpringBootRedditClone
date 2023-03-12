@@ -31,4 +31,8 @@ public class FlairService {
     public Flair save(Flair flair) {
         return flairRepository.save(flair);
     }
+
+    public List<Flair> findFlairsByCommunityId(Integer community_id) {
+        return flairRepository.findFlairsByCommunityId(community_id);
+    }
 }

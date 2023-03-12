@@ -1,6 +1,6 @@
 <div>
     <div>
-        <mat-card class="add-post-card">
+        <mat-card class="add-community-card">
             <mat-card-title class="card-title-main">Creating a new Community</mat-card-title>
             <div class="form-group">
                 <form [formGroup]="communityFormGroup">
@@ -57,7 +57,25 @@
                             <div *ngIf="ruleGroup['ruleDescription'].errors['minlength']">Name must be at least 3 characters long.</div>
                             <div *ngIf="ruleGroup['ruleDescription'].errors['maxlength']">Name must not exceed 50 characters.</div>
                         </div>
-                        <button (click)="addRule()" class="btn btn-info mt-3">Add Rule</button>
+                        <button *ngIf="rules.length <= 2" (click)="addRule()" class="btn btn-info mt-3">Add Rule</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="form-group">
+                <form [formGroup]="flairFormGroup">
+
+                    <div class="form-group col-6">
+                        <mat-card-title class="rule-description">Flair Name</mat-card-title>
+                        <input type="text" maxlength="51" class="form-control" formControlName="flairName"
+                        [ngClass]="{ 'is-invalid': submittedFlair && flairGroup['flairName'].errors}">
+                        <div *ngIf="submittedFlair && flairGroup['flairName'].errors" class="invalid-feedback">
+                            <div *ngIf="flairGroup['flairName'].errors['required']">Name is required.</div>
+                            <div *ngIf="flairGroup['flairName'].errors['minlength']">Name must be at least 3 characters long.</div>
+                            <div *ngIf="flairGroup['flairName'].errors['maxlength']">Name must not exceed 50 characters.</div>
+                        </div>
+                        <button (click)="addFlair()" class="btn btn-info mt-3">Add Flair</button>
                     </div>
 
                 </form>
@@ -65,13 +83,29 @@
 
         </mat-card>
 
-        <mat-card class="rules-card">
-            <div>
-                <mat-card-title>Added Rules</mat-card-title>
-                <div *ngFor="let rule of rules">
-                    <h4>Rule: {{rule.description}}</h4>
-                </div>
+        <div class="float-container">
+            <div class="float-child">
+                <mat-card class="rules-card">
+                    <div>
+                        <mat-card-title class="rules-card-title">Added Rules</mat-card-title>
+                        <div *ngFor="let rule of rules">
+                            <h4>Rule: {{rule.description}}</h4>
+                        </div>
+                    </div>
+                </mat-card>
             </div>
-        </mat-card>
+
+            <div class="float-child">
+                <mat-card class="flairs-card">
+                    <div>
+                        <mat-card-title class="flairs-card-title">Added Flairs</mat-card-title>
+                        <div *ngFor="let flair of flairs">
+                            <h4>Flair: {{flair.name}}</h4>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
     </div>
 </div>

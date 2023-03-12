@@ -11,14 +11,14 @@ export class CommunitiesComponent implements OnInit {
 
   communities: Array<Community> = [];
 
-  constructor(private communityService: CommunityService) {
-    this.communityService.GetAll().subscribe(community => {
-      this.communities = community;
-      console.log(community);
-    })
-   }
+  constructor(private communityService: CommunityService) { }
 
   ngOnInit(): void {
+    this.communityService.GetAll()
+      .subscribe(community => {
+        this.communities = community;
+        console.log(this.communities);
+      })
   }
 
 }

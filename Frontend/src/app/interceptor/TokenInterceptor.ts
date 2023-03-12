@@ -14,8 +14,8 @@ import { _throw } from 'rxjs/observable/throw';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: AuthService) { }
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.tokenIsPresent()) {
       request = request.clone({
         setHeaders: {

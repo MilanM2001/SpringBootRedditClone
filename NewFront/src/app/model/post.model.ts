@@ -2,15 +2,15 @@ import { Community } from "./community.model";
 import { Flair } from "./flair.model";
 
 export class Post {
-    postId: number = 0;
+    post_id: number = 0;
     title: string = "";
     text: string = "";
     createdDate: Date = new Date('2022-05-03');
     community: Community = new Community;
     flair: Flair = new Flair;
 
-    Post(postId: number, title: string, text: string, createdDate: Date, community: Community, flair: Flair) {
-        this.postId = postId;
+    Post(post_id: number, title: string, text: string, createdDate: Date, community: Community, flair: Flair) {
+        this.post_id = post_id;
         this.title = title;
         this.text = text;
         this.createdDate = createdDate;

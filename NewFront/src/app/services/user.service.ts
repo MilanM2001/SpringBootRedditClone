@@ -9,16 +9,16 @@ import { User } from '../model/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private url = "Auth";
+export class UserService {
+  private url = "users";
   constructor(private http: HttpClient) { }
 
   public register(registerDTO: RegisterDTO): Observable<User> {
-    return this.http.post<User>(`${environment.baseApiUrl}/${this.url}/Register`, registerDTO);
+    return this.http.post<User>(`${environment.baseApiUrl}/${this.url}/register`, registerDTO);
   }
 
   public login(loginDTO: LoginDTO): Observable<string> {
-    return this.http.post(`${environment.baseApiUrl}/${this.url}/Login`, loginDTO, { responseType: 'text' });
+    return this.http.post(`${environment.baseApiUrl}/${this.url}/login`, loginDTO, { responseType: 'text' });
   }
 
   public GetMe(): Observable<User> {

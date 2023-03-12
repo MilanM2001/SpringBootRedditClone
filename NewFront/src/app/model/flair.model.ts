@@ -1,9 +1,9 @@
 export class Flair {
-    flairId: number = 0;
+    flair_id: number = 0;
     name: string = "";
 
-    Flair(flairId: number, name: string) {
-        this.flairId = flairId;
+    Flair(flair_id: number, name: string) {
+        this.flair_id = flair_id;
         this.name = name;
     }
 }

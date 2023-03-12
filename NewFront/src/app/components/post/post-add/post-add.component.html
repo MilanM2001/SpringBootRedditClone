@@ -19,11 +19,11 @@
 
                     <div class="mb-3 w-25">
                         <mat-card-title class="card-title">Flair</mat-card-title>
-                        <mat-select class="form-control" formControlName="flairId" id="flairId" 
-                            [ngClass]="{ 'is-invalid':submitted && f['flairId'].errors}">
-                            <div *ngIf="submitted && f['flairId'].errors" class="invalid-feedback"></div>
+                        <mat-select class="form-control" formControlName="flair_id" id="flair_id" 
+                            [ngClass]="{ 'is-invalid':submitted && f['flair_id'].errors}">
+                            <div *ngIf="submitted && f['flair_id'].errors" class="invalid-feedback"></div>
                             <mat-option [value]="0">None</mat-option>
-                            <mat-option *ngFor="let flair of flairs" [value]="flair.flairId">
+                            <mat-option *ngFor="let flair of flairs" [value]="flair.flair_id">
                                 {{flair.name}}
                             </mat-option>
                         </mat-select>

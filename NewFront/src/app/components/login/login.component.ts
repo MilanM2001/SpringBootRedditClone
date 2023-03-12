@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginDTO } from 'src/app/dto/loginDTO';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
     login.username = this.formGroup.get('username')?.value;
     login.password = this.formGroup.get('password')?.value;
 
-    this.authService.login(login)
+    this.userService.login(login)
       .subscribe({
         next: (token: string) => {
           localStorage.setItem('authToken', token);
-          this.router.navigate(['/mainPage']);
+          this.router.navigateByUrl("/Communities");
         }
       })
 

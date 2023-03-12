@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Community } from 'src/app/model/community.model';
+import { Flair } from 'src/app/model/flair.model';
 import { Post } from 'src/app/model/post.model';
 import { Rule } from 'src/app/model/rule.model';
 import { CommunityService } from 'src/app/services/community.service';
@@ -15,38 +16,36 @@ export class CommunityViewComponent implements OnInit {
   @Input() community: Community = new Community();
   posts: Post[] = [];
   rules: Rule[] = [];
+  // flairs: Flair[] = [];
 
-  communityId: number = Number(this.route.snapshot.paramMap.get('communityId'));
+  community_id: number = Number(this.route.snapshot.paramMap.get('community_id'));
 
   constructor(private communityService: CommunityService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
-    this.communityService.GetSingle(this.communityId)
+    this.communityService.GetSingle(this.community_id)
       .subscribe({
         next: (data: Community) => {
           this.community = data as Community;
-          console.log(this.community);
         },
         error: (error) => {
           console.log(error);
-          this.router.navigate(['/404']);
         }
       });
 
-    this.communityService.GetCommunityPosts(this.communityId)
+    this.communityService.GetCommunityPosts(this.community_id)
       .subscribe({
         next: (data: Post[]) => {
           this.posts = data as Post[];
-          console.log(this.posts);
         },
         error: (error) => {
           console.log(error);
         }
       });
 
-    this.communityService.GetCommunityRules(this.communityId)
+    this.communityService.GetCommunityRules(this.community_id)
       .subscribe({
         next: (data: Rule[]) => {
           this.rules = data as Rule[];
@@ -56,11 +55,10 @@ export class CommunityViewComponent implements OnInit {
           console.log(error);
         }
       });
-
   }
 
   navigateTo(value: string){
-    this.router.navigate([value, this.community.communityId]);
+    this.router.navigate([value, this.community.community_id]);
   }
 
 }

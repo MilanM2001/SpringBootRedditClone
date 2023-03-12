@@ -41,7 +41,7 @@ public class Community implements Serializable {
     private Set<Post> posts = new HashSet<>();
 
     //Community has many Flairs
-    @ManyToMany(mappedBy = "communities")
+    @OneToMany(mappedBy = "community", fetch = FetchType.EAGER)
     private Set<Flair> flairs = new HashSet<>();
 
     @OneToMany(mappedBy = "community", fetch = FetchType.EAGER)

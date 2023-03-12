@@ -23,11 +23,11 @@ public class Flair implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    //Flair has many Communities
-    @ManyToMany
-    @JoinTable(name = "communityFlairs", joinColumns = @JoinColumn(name = "flair_id"), inverseJoinColumns = @JoinColumn(name = "community_id"))
-    private Set<Community> communities = new HashSet<Community>();
+    //Flair has one Community
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "community_id", nullable = false)
+    private Community community;
 
-    @OneToMany(mappedBy = "flair", fetch = FetchType.EAGER)
-    private Set<Post> posts = new HashSet<Post>();
+//    @OneToMany(mappedBy = "flair", fetch = FetchType.EAGER)
+//    private Set<Post> posts = new HashSet<Post>();
 }

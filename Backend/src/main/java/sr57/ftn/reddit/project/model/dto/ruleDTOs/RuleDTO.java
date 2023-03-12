@@ -13,5 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class RuleDTO implements Serializable {
     private Integer rule_id;
+    private String name;
     private String description;
 }
