@@ -44,16 +44,4 @@ public class CommunityService {
     public Community save(Community community) {
         return communityRepository.save(community);
     }
-
-    public Community findOneWithPosts(Integer community_id) {
-        return communityRepository.findOneWithPosts(community_id);
-    }
-
-    public Community findOneWithRules(Integer community_id) {
-        return communityRepository.findOneWithRules(community_id);
-    }
-
-    public Community findOneWithFlairs(Integer community_id) {
-        return communityRepository.findOneWithFlairs(community_id);
-    }
 }

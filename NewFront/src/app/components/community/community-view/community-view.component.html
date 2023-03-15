@@ -3,8 +3,8 @@
         <mat-card-title class="community-view-card-title">{{community.name}}</mat-card-title>
         <mat-card-subtitle class="community-view-card-subtitle">{{community.description}}</mat-card-subtitle>
             <mat-select placeholder="Moderator Options" (selectionChange)="navigateTo($event.value)" class="mb-3 w-25">
-                <option style="color: green" [value]="'/community-edit'">Edit</option>
-                <option style="color: red" [value]="'/community-suspend'">Suspend</option>
+                <mat-option style="color: green" [value]="'/Community-Edit'">Edit</mat-option>
+                <mat-option style="color: red" [value]="'/Community-Suspend'">Suspend</mat-option>
             </mat-select>
     </mat-card>
 </div>

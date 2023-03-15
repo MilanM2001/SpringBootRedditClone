@@ -42,7 +42,7 @@ public class CommentController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<CommentDTO>> getAll() {
+    public ResponseEntity<List<CommentDTO>> GetAll() {
         List<Comment> comments = commentService.findAll();
 
         List<CommentDTO> commentsDTO = modelMapper.map(comments, new TypeToken<List<CommentDTO>>() {
@@ -50,16 +50,16 @@ public class CommentController {
         return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{comment_id}")
-    public ResponseEntity<CommentDTO> getComment(@PathVariable("comment_id") Integer comment_id) {
+    @GetMapping(value = "/single/{comment_id}")
+    public ResponseEntity<CommentDTO> GetComment(@PathVariable("comment_id") Integer comment_id) {
         Comment comment = commentService.findOne(comment_id);
         return comment == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(comment, CommentDTO.class), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{comment_id}/addReport")
+    @PostMapping(value = "/addReport/{comment_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddReportDTO> reportComment(@RequestBody AddReportDTO addReportDTO, @PathVariable("comment_id") Integer comment_id, Authentication authentication) {
+    public ResponseEntity<AddReportDTO> ReportComment(@RequestBody AddReportDTO addReportDTO, @PathVariable("comment_id") Integer comment_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Comment comment = commentService.findOne(comment_id);
 
@@ -78,10 +78,10 @@ public class CommentController {
         return new ResponseEntity<>(modelMapper.map(newReport, AddReportDTO.class), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/updateComment/{comment_id}")
+    @PutMapping(value = "/update/{comment_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<UpdateCommentDTO> updateComment(@RequestBody UpdateCommentDTO updateCommentDTO, @PathVariable("comment_id") Integer comment_id, Authentication authentication) {
+    public ResponseEntity<UpdateCommentDTO> UpdateComment(@RequestBody UpdateCommentDTO updateCommentDTO, @PathVariable("comment_id") Integer comment_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Comment comment = commentService.findOne(comment_id);
 
@@ -99,10 +99,10 @@ public class CommentController {
         return new ResponseEntity<>(modelMapper.map(comment, UpdateCommentDTO.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{comment_id}")
+    @DeleteMapping(value = "/delete/{comment_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<Void> deleteComment(@PathVariable("comment_id") Integer comment_id, Authentication authentication) {
+    public ResponseEntity<Void> DeleteComment(@PathVariable("comment_id") Integer comment_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Comment comment = commentService.findOne(comment_id);
 

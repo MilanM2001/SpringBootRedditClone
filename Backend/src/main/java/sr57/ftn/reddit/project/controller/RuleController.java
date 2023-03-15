@@ -26,16 +26,7 @@ public class RuleController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<RuleDTO>> getAll() {
-        List<Rule> rules = ruleService.findAll();
-
-        List<RuleDTO> rulesDTO = modelMapper.map(rules, new TypeToken<List<RuleDTO>>() {
-        }.getType());
-        return new ResponseEntity<>(rulesDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/{rule_id}")
+    @GetMapping("/single/{rule_id}")
     public ResponseEntity<RuleDTO> getRule(@PathVariable("rule_id") Integer rule_id) {
         Rule rule = ruleService.findOne(rule_id);
         return rule == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(rule, RuleDTO.class), HttpStatus.OK);
@@ -53,8 +44,8 @@ public class RuleController {
         return new ResponseEntity<>(modelMapper.map(newRule, AddRuleDTO.class), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/{rule_id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(value = "/delete/{rule_id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Void> deleteRule(@PathVariable("rule_id") Integer rule_id) {
         Rule rule = ruleService.findOne(rule_id);
 

@@ -23,15 +23,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User getLoggedIn(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-        System.out.println("Currently LoggedIn username =" + userPrincipal.getUsername());
-        String username = userPrincipal.getUsername();
-        User user = userRepository.findFirstByUsername(username).get();
-
-        return user;
-    }
-
     public User findOne(Integer user_id) {
         return userRepository.findById(user_id).orElseGet(null);
     }

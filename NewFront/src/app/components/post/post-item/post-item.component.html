@@ -1,8 +1,8 @@
 <mat-card class="post-card">
-    <mat-card-title class="community-title" [routerLink]="['/community-view', post.community.community_id]">
+    <mat-card-title class="community-title" [routerLink]="['/Community-View', post.community.community_id]">
       {{post.community.name}}</mat-card-title>
-    <mat-card-title class="post-user-date">Posted by u/milan on {{post.createdDate | date}}</mat-card-title>
-    <mat-card-title class="post-title">{{post.title}}</mat-card-title>
-    <img class="post-image" mat-card-image [routerLink]="['/post-view', post.post_id]"
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+    <mat-card-title class="post-user">{{post.user.username}}</mat-card-title>
+    <mat-card-title class="post-title" [routerLink]="['/Post-View', post.post_id]">{{post.title}}</mat-card-title>
+    <!-- <img class="post-image" mat-card-image [routerLink]="['/post-view', post.post_id]"
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
   </mat-card>

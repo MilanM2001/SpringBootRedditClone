@@ -40,11 +40,11 @@ export class CommunityService {
         return this.http.post<Community>(`${environment.baseApiUrl}/${this.url}/add`, addCommunityDTO);
     }
 
-    public AddRule(communityId: number, community: Community) {
-        return this.http.put(`${environment.baseApiUrl}/${this.url}/AddRule/` + communityId, community);
+    public AddRule(community_id: number, community: Community) {
+        return this.http.put(`${environment.baseApiUrl}/${this.url}/AddRule/` + community_id, community);
     }
 
-    public Update(communityId: number, community: Community) {
-        return this.http.put(`${environment.baseApiUrl}/${this.url}/Update/` + communityId, community);
+    public Update(community_id: number, community: Community) {
+        return this.http.put(`${environment.baseApiUrl}/${this.url}/update/` + community_id, community);
     }
 }

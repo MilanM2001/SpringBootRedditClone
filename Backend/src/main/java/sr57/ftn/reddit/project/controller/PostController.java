@@ -47,7 +47,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<PostDTO>> getAll() {
+    public ResponseEntity<List<PostDTO>> GetAll() {
         List<Post> posts = postService.findAllFromNonSuspendedCommunity();
 
         List<PostDTO> postsDTO = modelMapper.map(posts, new TypeToken<List<PostDTO>>() {
@@ -56,13 +56,13 @@ public class PostController {
     }
 
     @GetMapping(value = "/single/{post_id}")
-    public ResponseEntity<PostDTO> getSingle(@PathVariable("post_id") Integer post_id) {
+    public ResponseEntity<PostDTO> GetSingle(@PathVariable("post_id") Integer post_id) {
         Post post = postService.findOne(post_id);
         return post == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(post, PostDTO.class), HttpStatus.OK);
     }
 
     @GetMapping(value = "/comments/{post_id}")
-    public ResponseEntity<List<CommentDTO>> getPostComments(@PathVariable("post_id") Integer post_id) {
+    public ResponseEntity<List<CommentDTO>> GetPostComments(@PathVariable("post_id") Integer post_id) {
         List<Comment> comments = commentService.findCommentsByPostId(post_id);
 
         List<CommentDTO> commentsDTO = modelMapper.map(comments, new TypeToken<List<CommentDTO>>() {}.getType());
@@ -91,7 +91,7 @@ public class PostController {
     @PostMapping(value = "/add/{community_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddPostDTO> addPost(@RequestBody AddPostDTO addPostDTO, @PathVariable("community_id") Integer community_id, Authentication authentication) {
+    public ResponseEntity<AddPostDTO> AddPost(@RequestBody AddPostDTO addPostDTO, @PathVariable("community_id") Integer community_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Community community = communityService.findOne(community_id);
 
@@ -125,7 +125,7 @@ public class PostController {
     @PostMapping(value = "/addComment/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddCommentDTO> addComment(@RequestBody AddCommentDTO addCommentDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
+    public ResponseEntity<AddCommentDTO> AddComment(@RequestBody AddCommentDTO addCommentDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Post post = postService.findOne(post_id);
 
@@ -154,7 +154,7 @@ public class PostController {
     @PostMapping(value = "/addReport/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<AddReportDTO> reportPost(@RequestBody AddReportDTO addReportDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
+    public ResponseEntity<AddReportDTO> ReportPost(@RequestBody AddReportDTO addReportDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Post post = postService.findOne(post_id);
 
@@ -176,7 +176,7 @@ public class PostController {
     @PutMapping(value = "update/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<UpdatePostDTO> updatePost(@RequestBody UpdatePostDTO updatePostDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
+    public ResponseEntity<UpdatePostDTO> UpdatePost(@RequestBody UpdatePostDTO updatePostDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Post post = postService.findOne(post_id);
 
@@ -198,7 +198,7 @@ public class PostController {
     @DeleteMapping(value = "/delete/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<Void> deletePost(@PathVariable("post_id") Integer post_id, Authentication authentication) {
+    public ResponseEntity<Void> DeletePost(@PathVariable("post_id") Integer post_id, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Post post = postService.findOne(post_id);
 

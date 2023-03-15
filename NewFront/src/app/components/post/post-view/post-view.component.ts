@@ -12,37 +12,37 @@ export class PostViewComponent implements OnInit {
 
   post: Post = new Post();
 
-  constructor(private postService: PostService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private location: Location) { }
+  constructor(
+  private postService: PostService,
+  private route: ActivatedRoute,
+  private router: Router) { }
+
+  post_id = Number(this.route.snapshot.paramMap.get('post_id'))
+  community_id: Number = 0;
 
   ngOnInit(): void {
-    this.postService.GetSingle(Number(this.route.snapshot.paramMap.get('postId')))
+    this.postService.GetSingle(this.post_id)
       .subscribe({
         next: (data: Post) => {
           this.post = data as Post;
+          this.community_id = this.post.community.community_id
           console.log(this.post);
         },
-        error: (error: Error) => {
+        error: (error) => {
           console.log(error);  	
-          this.router.navigate(['/404']);
         }
       })
   }
 
   deletePost() {
     if(window.confirm("Are you sure you want to delete this post?")) {
-      this.postService.Delete(Number(this.route.snapshot.paramMap.get('postId')))
+      this.postService.Delete(this.post_id)
         .subscribe({
           next: () => {
-            console.log("Post Deleted");
+            this.router.navigate(['/Community-View', this.community_id])
           },
-          error: (error: Error) => {
+          error: (error) => {
             console.log(error);
-          },
-          complete: () => {
-            window.alert("Uradio, idi nazad")
           }
         });
     };

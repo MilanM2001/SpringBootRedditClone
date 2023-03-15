@@ -46,7 +46,8 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, AuthenticationManager authenticationManager,
-                          UserDetailsService userDetailsService, TokenUtils tokenUtils, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+                          UserDetailsService userDetailsService, TokenUtils tokenUtils,
+                          ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getAll() {
+    public ResponseEntity<List<UserDTO>> GetAll() {
         List<User> users = userService.findAll();
 
         List<UserDTO> usersDTO = modelMapper.map(users, new TypeToken<List<UserDTO>>() {
@@ -66,7 +67,7 @@ public class UserController {
 
     @GetMapping("/single/{user_id}")
     @CrossOrigin
-    public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Integer user_id) {
+    public ResponseEntity<UserDTO> GetUser(@PathVariable("user_id") Integer user_id) {
         User user = userService.findOne(user_id);
         return user == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(user, UserDTO.class), HttpStatus.OK);
     }
@@ -79,7 +80,7 @@ public class UserController {
 
     @GetMapping(value = "/posts/{user_id}")
     @CrossOrigin
-    public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable Integer user_id) {
+    public ResponseEntity<List<PostDTO>> GetUserPosts(@PathVariable Integer user_id) {
         try {
             User user = userService.findOneWithPosts(user_id);
 
@@ -107,7 +108,7 @@ public class UserController {
 
     @PostMapping(value = "/register", consumes = "application/json")
     @CrossOrigin
-    public ResponseEntity<AddUserDTO> signup(@RequestBody AddUserDTO addUserDTO) {
+    public ResponseEntity<AddUserDTO> Register(@RequestBody AddUserDTO addUserDTO) {
 
         User newUser = new User();
 
@@ -136,7 +137,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @CrossOrigin
-    public ResponseEntity<String> login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+    public ResponseEntity<String> Login(@RequestBody JwtAuthenticationRequest authenticationRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -150,7 +151,7 @@ public class UserController {
     @PutMapping(value = "/updatePassword/{user_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<UpdatePasswordDTO> updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO, @PathVariable("user_id") Integer user_id, Authentication authentication) {
+    public ResponseEntity<UpdatePasswordDTO> UpdatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO, @PathVariable("user_id") Integer user_id, Authentication authentication) {
         User currentUser = userService.findByUsername(authentication.getName());
         User user = userService.findOne(user_id);
 
@@ -171,7 +172,7 @@ public class UserController {
     @PutMapping(value = "/updateInfo/{user_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
-    public ResponseEntity<UpdateInfoDTO> updateInfo(@RequestBody UpdateInfoDTO updateInfoDTO, @PathVariable("user_id") Integer user_id, Authentication authentication) {
+    public ResponseEntity<UpdateInfoDTO> UpdateInfo(@RequestBody UpdateInfoDTO updateInfoDTO, @PathVariable("user_id") Integer user_id, Authentication authentication) {
         User currentUser = userService.findByUsername(authentication.getName());
         User user = userService.findOne(user_id);
 
@@ -189,7 +190,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable("user_id") Integer user_id) {
+    public ResponseEntity<Void> DeleteUser(@PathVariable("user_id") Integer user_id) {
         User user = userService.findOne(user_id);
 
         if (user != null) {

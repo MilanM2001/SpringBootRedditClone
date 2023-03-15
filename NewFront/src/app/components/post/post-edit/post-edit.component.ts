@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/model/post.model';
 import { PostService } from 'src/app/services/post.service';
 
@@ -17,13 +17,14 @@ export class PostEditComponent implements OnInit {
   })
   submitted = false;
 
-  post_id = Number(this.route.snapshot.paramMap.get('postId'));
+  post_id = Number(this.route.snapshot.paramMap.get('post_id'));
   post: Post = new Post();
 
-  constructor(private postService: PostService,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private location: Location) { }
+  constructor(
+  private postService: PostService,
+  private route: ActivatedRoute,
+  private formBuilder: FormBuilder,
+  private router: Router) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -64,7 +65,7 @@ export class PostEditComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           console.log(data);
-          window.alert("Uspeh, ubaci da se vrati")
+          this.router.navigate(['/Post-View', this.post_id])
         },
         error: (error: Error) => {
           console.log(error);

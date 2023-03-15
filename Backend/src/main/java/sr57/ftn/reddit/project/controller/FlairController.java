@@ -31,7 +31,7 @@ public class FlairController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<FlairDTO>> getAll() {
+    public ResponseEntity<List<FlairDTO>> GetAll() {
         List<Flair> flairs = flairService.findAll();
 
         List<FlairDTO> flairsDTO = modelMapper.map(flairs, new TypeToken<List<FlairDTO>>() {
@@ -39,8 +39,8 @@ public class FlairController {
         return new ResponseEntity<>(flairsDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{flair_id}")
-    public ResponseEntity<FlairDTO> getSingle(@PathVariable("flair_id") Integer flair_id) {
+    @GetMapping("/single/{flair_id}")
+    public ResponseEntity<FlairDTO> GetSingle(@PathVariable("flair_id") Integer flair_id) {
         Flair flair = flairService.findOne(flair_id);
         return flair == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(flair, FlairDTO.class), HttpStatus.OK);
     }

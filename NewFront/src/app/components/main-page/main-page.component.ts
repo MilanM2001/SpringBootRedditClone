@@ -11,13 +11,11 @@ export class MainPageComponent implements OnInit {
 
   posts: Array<Post> = [];
 
-  constructor(private postService: PostService) {
-   }
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
     this.postService.GetAll().subscribe(post => {
       this.posts = post;
-      console.log(this.posts);
     });
   }
 
