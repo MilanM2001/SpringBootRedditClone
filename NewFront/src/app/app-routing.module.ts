@@ -12,6 +12,9 @@ import { PostAddComponent } from './components/post/post-add/post-add.component'
 import { PostEditComponent } from './components/post/post-edit/post-edit.component';
 import { PostViewComponent } from './components/post/post-view/post-view.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RuleAddComponent } from './components/rule/rule-add/rule-add.component';
+import { RuleEditComponent } from './components/rule/rule-edit/rule-edit.component';
+import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
 
 const routes: Routes = [
   {
@@ -57,6 +60,18 @@ const routes: Routes = [
   {
     path: 'Post-Add/:community_id',
     component: PostAddComponent
+  },
+  {
+    path: 'Rule-Edit/:rule_id',
+    component: RuleEditComponent
+  },
+  {
+    path: 'Rule-Add/:community_id',
+    component: RuleAddComponent
+  },
+  {
+    path: 'My-Profile',
+    component: MyProfileComponent
   },
   
   {

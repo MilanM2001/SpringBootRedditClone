@@ -27,13 +27,9 @@ import java.util.List;
 @RequestMapping(value = "api/reactions")
 public class ReactionController {
     final UserService userService;
-
     final ModelMapper modelMapper;
-
     final ReactionService reactionService;
-
     final PostService postService;
-
     final CommentService commentService;
 
     @Autowired

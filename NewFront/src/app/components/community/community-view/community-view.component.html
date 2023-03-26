@@ -2,7 +2,7 @@
     <mat-card class="community-view-card">
         <mat-card-title class="community-view-card-title">{{community.name}}</mat-card-title>
         <mat-card-subtitle class="community-view-card-subtitle">{{community.description}}</mat-card-subtitle>
-            <mat-select placeholder="Moderator Options" (selectionChange)="navigateTo($event.value)" class="mb-3 w-25">
+            <mat-select *ngIf="isLoggedIn()" placeholder="Moderator Options" (selectionChange)="navigateTo($event.value)" class="mb-3 w-25">
                 <mat-option style="color: green" [value]="'/Community-Edit'">Edit</mat-option>
                 <mat-option style="color: red" [value]="'/Community-Suspend'">Suspend</mat-option>
             </mat-select>
@@ -16,14 +16,14 @@
     </div>
 
     <div class="col-5 col-lg-4">
-        <a [routerLink]="['/Post-Add', community.community_id]"><button class="btn btn-primary">Create a Post</button></a>
+        <a *ngIf="isLoggedIn()" [routerLink]="['/Post-Add', community.community_id]"><button class="btn btn-primary">Create a Post</button></a>
         <mat-card class="community-view-rules-card">
             <mat-card-title class="community-view-rules-card-title">Community Rules:</mat-card-title>
             <mat-card-content *ngFor="let rule of rules">
-                <mat-card-header class="community-rules-header">{{rule.name}} <mat-icon class="edit-icon" [routerLink]="['/rule-edit', rule.rule_id]">edit</mat-icon></mat-card-header>
+                <mat-card-header class="community-rules-header">{{rule.name}} <mat-icon *ngIf="isLoggedIn()" class="edit-icon" [routerLink]="['/Rule-Edit', rule.rule_id]">edit</mat-icon></mat-card-header>
             </mat-card-content>
         </mat-card>
-        <a [routerLink]="['/rule-add', community.community_id]"><button class="btn btn-danger">Add Rules</button></a>
+        <a *ngIf="isLoggedIn()" [routerLink]="['/Rule-Add', community.community_id]"><button class="btn btn-danger">Add Rule</button></a>
     </div>
 
     <!-- <div class="col-5 col-lg-4">

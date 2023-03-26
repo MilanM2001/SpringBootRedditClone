@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sr57.ftn.reddit.project.model.dto.communityDTOs.CommunityDTO;
+import sr57.ftn.reddit.project.model.dto.flairDTOs.FlairDTO;
 import sr57.ftn.reddit.project.model.dto.reactionDTOs.ReactionForCommentAndPost;
 import sr57.ftn.reddit.project.model.dto.reportDTOs.ReportDTO;
 import sr57.ftn.reddit.project.model.dto.userDTOs.UserDTO;
@@ -25,5 +26,5 @@ public class PostDTO implements Serializable {
     private Set<ReactionForCommentAndPost> reactions = new HashSet<>();
     private CommunityDTO community;
     private UserDTO user;
-    private Set<ReportDTO> reports = new HashSet<>();
+    private FlairDTO flair;
 }

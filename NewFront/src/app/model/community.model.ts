@@ -8,17 +8,17 @@ export class Community {
     description: string = "";
     createdDate: Date = new Date('2022-05-03');
     isSuspended: boolean = false;
-    suspendedReason: string = "";
+    suspended_reason: string = "";
     rules: Rule[] = [];
     flairs: Flair[] = [];
 
-    Community(community_id: number, name: string, description: string, createdDate: Date, isSuspended: boolean, suspendedReason: string, rules: Rule[], flairs: Flair[]) {
+    Community(community_id: number, name: string, description: string, createdDate: Date, isSuspended: boolean, suspended_reason: string, rules: Rule[], flairs: Flair[]) {
         this.community_id = community_id;
         this,name = name;
         this.description = description;
         this.createdDate = createdDate;
         this.isSuspended = isSuspended;
-        this.suspendedReason = suspendedReason;
+        this.suspended_reason = suspended_reason;
         this.rules = rules;
         this.flairs = flairs;
     }

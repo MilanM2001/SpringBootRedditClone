@@ -14,9 +14,15 @@ export class MainPageComponent implements OnInit {
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
-    this.postService.GetAll().subscribe(post => {
-      this.posts = post;
-    });
+    this.postService.GetAll()
+    .subscribe({
+      next: (data: Post[]) => {
+        this.posts = data;
+      },
+      error: (error: Error) => {
+        console.log(error);
+      }
+    })
   }
 
 }

@@ -13,7 +13,7 @@
             <button *ngIf="notLoggedIn()" mat-button mat-ripple routerLink="/Register">
                 <span>Register</span>
             </button>
-            <button *ngIf="isLoggedIn()" mat-button mat-ripple routerLink="/myProfile">
+            <button *ngIf="isLoggedIn()" mat-button mat-ripple routerLink="/My-Profile">
                 <span>My Profile</span>
             </button>
             <button *ngIf="isLoggedIn()" (click)="logout()" mat-button mat-ripple>

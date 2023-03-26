@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface CommunityRepository extends JpaRepository<Community, Integer> {
     Optional<Community> findFirstByName(String name);
 
-    @Query(value = "select * from Community community where community.is_suspended = false", nativeQuery = true)
+    @Query(nativeQuery = true, value = "select * from Community community where community.is_suspended = false")
     List<Community> findAllNonSuspended();
 }

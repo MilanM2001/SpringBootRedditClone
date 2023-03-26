@@ -35,6 +35,7 @@
 
 .edit-icon {
     margin-left: 15px;
+    cursor: pointer;
 }
 
 .community-view-rules-card-title {

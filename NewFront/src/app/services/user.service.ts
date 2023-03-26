@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginDTO } from '../dto/loginDTO';
 import { RegisterDTO } from '../dto/registerDTO';
+import { Post } from '../model/post.model';
 import { User } from '../model/user.model';
 
 @Injectable({
@@ -22,11 +23,11 @@ export class UserService {
   }
 
   public GetMe(): Observable<User> {
-    return this.http.get<User>(`${environment.baseApiUrl}/${this.url}/GetMe`);
-}
+    return this.http.get<User>(`${environment.baseApiUrl}/${this.url}/getMe`);
+  }
 
-  // public getMe(): Observable<string> {
-  //   return this.http.get<string>(`${environment.baseApiUrl}/${this.url}/GetMe`);
-  // }
+  public GetUserPosts(user_id: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${environment.baseApiUrl}/${this.url}/posts/` + user_id);
+  }
 
 }

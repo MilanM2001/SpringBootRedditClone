@@ -75,16 +75,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/single/{user_id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/users/whoami").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/users/getMe").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
 //                .antMatchers(HttpMethod.POST, "/api/users/loginAndroid").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/api//flairs/all").permitAll()
-                .antMatchers(HttpMethod.GET, "/api//flairs/{flair_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/flairs/{flair_id}").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/api//rules/all").permitAll()
-                .antMatchers(HttpMethod.GET, "/api//rules/{rule_id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/rules/{rule_id}").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/comments/all").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/comments/{comment_id}").permitAll()

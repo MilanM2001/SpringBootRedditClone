@@ -30,15 +30,6 @@ public class FlairController {
         this.flairRepository = flairRepository;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<FlairDTO>> GetAll() {
-        List<Flair> flairs = flairService.findAll();
-
-        List<FlairDTO> flairsDTO = modelMapper.map(flairs, new TypeToken<List<FlairDTO>>() {
-        }.getType());
-        return new ResponseEntity<>(flairsDTO, HttpStatus.OK);
-    }
-
     @GetMapping("/single/{flair_id}")
     public ResponseEntity<FlairDTO> GetSingle(@PathVariable("flair_id") Integer flair_id) {
         Flair flair = flairService.findOne(flair_id);

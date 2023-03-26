@@ -31,8 +31,6 @@ export class PostAddComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder) { }
   
-  // @ts-ignore
-  formGroup: FormGroup;
   submitted = false;
   
   ngOnInit(): void {

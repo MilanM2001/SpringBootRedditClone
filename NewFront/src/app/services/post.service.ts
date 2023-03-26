@@ -20,8 +20,8 @@ export class PostService {
     return this.http.get<Post>(`${environment.baseApiUrl}/${this.url}/single/` + post_id);
   }
 
-  public AddPost(communityId: number, postDTO: AddPostDTO): Observable<Post> {
-    return this.http.post<Post>(`${environment.baseApiUrl}/${this.url}/add/` + communityId, postDTO);
+  public AddPost(community_id: number, postDTO: AddPostDTO): Observable<Post> {
+    return this.http.post<Post>(`${environment.baseApiUrl}/${this.url}/add/` + community_id, postDTO);
   }
 
   public Update(post_id: number, post: Post) {

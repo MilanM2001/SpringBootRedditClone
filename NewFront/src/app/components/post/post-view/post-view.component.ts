@@ -48,4 +48,22 @@ export class PostViewComponent implements OnInit {
     };
   }
 
+  public isLoggedIn(): boolean {
+    if (localStorage.getItem("authToken") != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  notLoggedIn(): boolean {
+    if (localStorage.getItem("authToken") === null) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
 }

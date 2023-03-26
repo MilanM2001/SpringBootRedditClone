@@ -57,6 +57,24 @@ export class CommunityViewComponent implements OnInit {
       });
   }
 
+  public isLoggedIn(): boolean {
+    if (localStorage.getItem("authToken") != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  notLoggedIn(): boolean {
+    if (localStorage.getItem("authToken") === null) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
   navigateTo(value: string){
     this.router.navigate([value, this.community.community_id]);
   }

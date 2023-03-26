@@ -122,35 +122,6 @@ public class PostController {
         return new ResponseEntity<>(modelMapper.map(newPost, AddPostDTO.class), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/addComment/{post_id}")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @CrossOrigin
-    public ResponseEntity<AddCommentDTO> AddComment(@RequestBody AddCommentDTO addCommentDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
-        Post post = postService.findOne(post_id);
-
-        Comment newComment = new Comment();
-
-        newComment.setText(addCommentDTO.getText());
-        newComment.setTimestamp(LocalDate.now());
-        newComment.setIs_deleted(false);
-        newComment.setUser(user);
-        newComment.setPost(post);
-
-        newComment = commentService.save(newComment);
-
-        Reaction newReaction = new Reaction();
-
-        newReaction.setUser(user);
-        newReaction.setTimestamp(LocalDate.now());
-        newReaction.setComment(newComment);
-        newReaction.setReaction_type(ReactionType.UPVOTE);
-        newReaction.setPost(null);
-
-        reactionService.save(newReaction);
-        return new ResponseEntity<>(modelMapper.map(newComment, AddCommentDTO.class), HttpStatus.ACCEPTED);
-    }
-
     @PostMapping(value = "/addReport/{post_id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin

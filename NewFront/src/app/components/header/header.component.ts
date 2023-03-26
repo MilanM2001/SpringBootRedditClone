@@ -13,21 +13,21 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isLoggedIn(): boolean {
+    if (localStorage.getItem("authToken") != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   notLoggedIn(): boolean {
     if (localStorage.getItem("authToken") === null) {
       return true
     }
     else {
       return false
-    }
-  }
-
-  isLoggedIn(): boolean {
-    if (localStorage.getItem("authToken") != null) {
-      return true;
-    }
-    else {
-      return false;
     }
   }
 

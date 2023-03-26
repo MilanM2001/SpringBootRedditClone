@@ -8,17 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import sr57.ftn.reddit.project.model.dto.commentDTOs.AddCommentDTO;
 import sr57.ftn.reddit.project.model.dto.commentDTOs.CommentDTO;
 import sr57.ftn.reddit.project.model.dto.commentDTOs.UpdateCommentDTO;
 import sr57.ftn.reddit.project.model.dto.reportDTOs.AddReportDTO;
-import sr57.ftn.reddit.project.model.entity.Comment;
-import sr57.ftn.reddit.project.model.entity.Report;
-import sr57.ftn.reddit.project.model.entity.User;
+import sr57.ftn.reddit.project.model.entity.*;
+import sr57.ftn.reddit.project.model.enums.ReactionType;
 import sr57.ftn.reddit.project.model.enums.ReportStatus;
-import sr57.ftn.reddit.project.service.CommentService;
-import sr57.ftn.reddit.project.service.ReactionService;
-import sr57.ftn.reddit.project.service.ReportService;
-import sr57.ftn.reddit.project.service.UserService;
+import sr57.ftn.reddit.project.service.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,29 +28,51 @@ public class CommentController {
     final UserService userService;
     final ReactionService reactionService;
     final ReportService reportService;
+    final PostService postService;
 
     @Autowired
-    public CommentController(CommentService commentService, ModelMapper modelMapper, UserService userService, ReactionService reactionService, ReportService reportService) {
+    public CommentController(CommentService commentService, ModelMapper modelMapper, UserService userService, ReactionService reactionService, ReportService reportService, PostService postService) {
         this.commentService = commentService;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.reactionService = reactionService;
         this.reportService = reportService;
-    }
-
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<CommentDTO>> GetAll() {
-        List<Comment> comments = commentService.findAll();
-
-        List<CommentDTO> commentsDTO = modelMapper.map(comments, new TypeToken<List<CommentDTO>>() {
-        }.getType());
-        return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
+        this.postService = postService;
     }
 
     @GetMapping(value = "/single/{comment_id}")
     public ResponseEntity<CommentDTO> GetComment(@PathVariable("comment_id") Integer comment_id) {
         Comment comment = commentService.findOne(comment_id);
         return comment == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(comment, CommentDTO.class), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/add/{post_id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @CrossOrigin
+    public ResponseEntity<AddCommentDTO> AddComment(@RequestBody AddCommentDTO addCommentDTO, @PathVariable("post_id") Integer post_id, Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        Post post = postService.findOne(post_id);
+
+        Comment newComment = new Comment();
+
+        newComment.setText(addCommentDTO.getText());
+        newComment.setTimestamp(LocalDate.now());
+        newComment.setIs_deleted(false);
+        newComment.setUser(user);
+        newComment.setPost(post);
+
+        newComment = commentService.save(newComment);
+
+        Reaction newReaction = new Reaction();
+
+        newReaction.setUser(user);
+        newReaction.setTimestamp(LocalDate.now());
+        newReaction.setComment(newComment);
+        newReaction.setReaction_type(ReactionType.UPVOTE);
+        newReaction.setPost(null);
+
+        reactionService.save(newReaction);
+        return new ResponseEntity<>(modelMapper.map(newComment, AddCommentDTO.class), HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/addReport/{comment_id}")

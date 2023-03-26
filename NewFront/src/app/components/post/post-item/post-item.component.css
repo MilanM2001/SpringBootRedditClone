@@ -35,4 +35,10 @@
   margin-bottom: 20px;
   cursor: pointer;
 }
+
+.post-flair {
+  font-size: 15px;
+  text-align: left;
+  color: red;
+}
   

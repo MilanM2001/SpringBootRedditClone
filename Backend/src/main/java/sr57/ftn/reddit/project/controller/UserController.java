@@ -25,6 +25,7 @@ import sr57.ftn.reddit.project.model.entity.Post;
 import sr57.ftn.reddit.project.model.entity.User;
 import sr57.ftn.reddit.project.security.JwtAuthenticationRequest;
 import sr57.ftn.reddit.project.security.TokenUtils;
+import sr57.ftn.reddit.project.service.PostService;
 import sr57.ftn.reddit.project.service.UserService;
 
 import java.security.Principal;
@@ -38,6 +39,7 @@ import java.util.Set;
 @RequestMapping(value = "api/users")
 public class UserController {
     final UserService userService;
+    final PostService postService;
     final ModelMapper modelMapper;
     final AuthenticationManager authenticationManager;
     final UserDetailsService userDetailsService;
@@ -45,10 +47,11 @@ public class UserController {
     final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, AuthenticationManager authenticationManager,
+    public UserController(UserService userService, PostService postService, AuthenticationManager authenticationManager,
                           UserDetailsService userDetailsService, TokenUtils tokenUtils,
                           ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.postService = postService;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.tokenUtils = tokenUtils;
@@ -72,38 +75,20 @@ public class UserController {
         return user == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(user, UserDTO.class), HttpStatus.OK);
     }
 
-    @GetMapping("/whoami")
+    @GetMapping("/getMe")
     @CrossOrigin
-    public UserDTO user(Principal user) {
-        return modelMapper.map(userService.findByUsername(user.getName()), UserDTO.class);
+    public ResponseEntity<UserDTO> GetMe(Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        return user == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(modelMapper.map(user, UserDTO.class), HttpStatus.OK);
     }
 
     @GetMapping(value = "/posts/{user_id}")
     @CrossOrigin
     public ResponseEntity<List<PostDTO>> GetUserPosts(@PathVariable Integer user_id) {
-        try {
-            User user = userService.findOneWithPosts(user_id);
+        List<Post> posts = postService.findPostsByUserId(user_id);
 
-            Set<Post> posts = user.getPosts();
-            List<PostDTO> postsDTO = new ArrayList<>();
-            for (Post post : posts) {
-                PostDTO postDTO = new PostDTO();
-
-                postDTO.setPost_id(post.getPost_id());
-                postDTO.setTitle(post.getTitle());
-                postDTO.setText(post.getText());
-                postDTO.setImage_path(post.getImage_path());
-                postDTO.setCommunity(modelMapper.map(post.getCommunity(), CommunityDTO.class));
-                postDTO.setUser(modelMapper.map(post.getUser(), UserDTO.class));
-                postDTO.setReactions(modelMapper.map(post.getReactions(), new TypeToken<Set<ReactionDTO>>() {
-                }.getType()));
-
-                postsDTO.add(postDTO);
-            }
-            return new ResponseEntity<>(postsDTO, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-        }
+        List<PostDTO> postsDTO = modelMapper.map(posts, new TypeToken<List<PostDTO>>() {}.getType());
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
     @PostMapping(value = "/register", consumes = "application/json")

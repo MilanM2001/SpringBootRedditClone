@@ -42,11 +42,11 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post findOneWithComments(Integer post_id) {
-        return postRepository.findOneWithComments(post_id);
-    }
-
     public List<Post> findPostsByCommunityId(Integer community_id) {
         return postRepository.findPostsByCommunityId(community_id);
+    }
+
+    public List<Post> findPostsByUserId(Integer user_id) {
+        return postRepository.findPostsByUserId(user_id);
     }
 }

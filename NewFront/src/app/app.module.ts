@@ -33,6 +33,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { MatIcon } from '@angular/material';
+import { RuleEditComponent } from './components/rule/rule-edit/rule-edit.component';
+import { RuleAddComponent } from './components/rule/rule-add/rule-add.component';
+import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
+import { ViewProfileComponent } from './components/user/view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { MatIcon } from '@angular/material';
     PostListComponent,
     PostViewComponent,
     NotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    RuleEditComponent,
+    RuleAddComponent,
+    MyProfileComponent,
+    ViewProfileComponent
   ],
   imports: [
     BrowserModule,

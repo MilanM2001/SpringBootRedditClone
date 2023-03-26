@@ -1,2 +1,3 @@
-<a routerLink="/Community-Add"><button class="btn btn-success">Create a Community</button></a>
+<h1 class="welcome">All Communities</h1>
+<a routerLink="/Community-Add" *ngIf="isLoggedIn()"><button class="btn btn-success">Create a Community</button></a>
 <app-community-list [communities]="communities"></app-community-list>
