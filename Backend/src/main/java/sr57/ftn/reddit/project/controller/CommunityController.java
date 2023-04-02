@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import sr57.ftn.reddit.project.elasticservice.CommunityElasticService;
 import sr57.ftn.reddit.project.model.dto.communityDTOs.*;
 import sr57.ftn.reddit.project.model.dto.flairDTOs.FlairDTO;
 import sr57.ftn.reddit.project.model.dto.postDTOs.PostDTO;
 import sr57.ftn.reddit.project.model.dto.ruleDTOs.RuleDTO;
+import sr57.ftn.reddit.project.model.elasticmodel.CommunityElastic;
 import sr57.ftn.reddit.project.model.entity.*;
 import sr57.ftn.reddit.project.service.*;
 
@@ -30,9 +32,13 @@ public class CommunityController {
     final FlairService flairService;
     final PostService postService;
     final ReactionService reactionService;
+    final CommunityElasticService communityElasticService;
 
     @Autowired
-    public CommunityController(CommunityService communityService, ModelMapper modelMapper, UserService userService, ModeratorService moderatorService, RuleService ruleService, FlairService flairService, PostService postService, ReactionService reactionService) {
+    public CommunityController(CommunityService communityService, ModelMapper modelMapper,
+                               UserService userService, ModeratorService moderatorService,
+                               RuleService ruleService, FlairService flairService, PostService postService,
+                               ReactionService reactionService, CommunityElasticService communityElasticService) {
         this.communityService = communityService;
         this.modelMapper = modelMapper;
         this.userService = userService;
@@ -41,6 +47,7 @@ public class CommunityController {
         this.flairService = flairService;
         this.postService = postService;
         this.reactionService = reactionService;
+        this.communityElasticService = communityElasticService;
     }
 
     @GetMapping("/all")
@@ -83,6 +90,12 @@ public class CommunityController {
         return new ResponseEntity<>(flairsDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/findByName/{name}")
+    public ResponseEntity<List<CommunityElastic>> GetByName(@PathVariable String name) {
+        List<CommunityElastic> communityByName = communityElasticService.findByName(name);
+        return new ResponseEntity<>(communityByName, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/add")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @CrossOrigin
@@ -104,6 +117,11 @@ public class CommunityController {
 
 //        Community savedCommunity = communityService.save(newCommunity);
           communityService.save(newCommunity);
+
+        AddCommunityElasticDTO addCommunityElasticDTO = new AddCommunityElasticDTO();
+        addCommunityElasticDTO.setName(addCommunityDTO.getName());
+        addCommunityElasticDTO.setName(addCommunityDTO.getDescription());
+          communityElasticService.save(addCommunityElasticDTO);
 
         for (RuleDTO ruleDTO : addCommunityDTO.getRules()) {
             Rule newRule = new Rule();
