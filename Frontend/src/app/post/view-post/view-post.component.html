@@ -13,19 +13,19 @@
     <mat-card-content>
       <p>{{post?.text}}</p>
     </mat-card-content>
-    <mat-card-actions>
-      <button *ngIf="hasSignedIn() && isByUser() === post?.user?.user_id" mat-button class="btn btn-warning"
-        [routerLink]="['/update-post', post?.post_id]">Update</button>
-      <button *ngIf="hasSignedIn() && isByUser() === post?.user?.user_id" mat-button class="btn btn-danger"
-        (click)="deletePost()">Delete</button>
-    </mat-card-actions>
-    <button *ngIf="hasSignedIn()" (click)="upvotePost()">
-      <span style='font-size:15px;'>&#8593;</span>
-    </button>
-    <h4>{{postKarma()}}</h4>
-    <button *ngIf="hasSignedIn()" (click)="downvotePost()">
-      <span style='font-size:15px;'>&#8595;</span>
-    </button>
+      <mat-card-actions>
+        <button *ngIf="hasSignedIn() && isByUser() === post?.user?.user_id" mat-button class="btn btn-warning"
+          [routerLink]="['/update-post', post?.post_id]">Update</button>
+        <button *ngIf="hasSignedIn() && isByUser() === post?.user?.user_id" mat-button class="btn btn-danger"
+          (click)="deletePost()">Delete</button>
+      </mat-card-actions>
+      <button *ngIf="hasSignedIn()" (click)="upvotePost()">
+        <span style='font-size:15px;'>&#8593;</span>
+      </button>
+      <h4>{{postKarma()}}</h4>
+      <button *ngIf="hasSignedIn()" (click)="downvotePost()">
+        <span style='font-size:15px;'>&#8595;</span>
+      </button>
   </mat-card>
 </div>
 <app-create-comment (saveCommentEvent)="ngOnInit($event)"></app-create-comment>
